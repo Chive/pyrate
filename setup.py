@@ -24,7 +24,7 @@ setup(
     author_email='kim@smuzey.ch',
     url='https://github.com/chive/pyrate',
     packages=['pyrate'],
-    license='LICENSE',
+    license='MIT',
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
     include_package_data=True,
