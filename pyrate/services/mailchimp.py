@@ -1,5 +1,4 @@
-from pyrate import Pyrate
-
+from pyrate.pyrate import Pyrate
 
 class MailchimpPyrate(Pyrate):
 

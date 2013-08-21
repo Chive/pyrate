@@ -1,55 +1,57 @@
-import imp
 import requests
 
-class Pyrate(object):
 
-    def __init__(self, recipe):
-        if recipe == '':
-            raise Exception
+class Pyrate:
 
-        self.recipe = self.loadRecipe(recipe)
-        #self.config = self.recipe.get_config()
+    http_methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    return_formats = ['json']
+    default_header_content = None
+    default_body_content = None
+    default_http_method = None
+    default_return_format = None
+    connection_check_method = None
+    auth_type = None
+    api_key = None
+    base_url = None
 
-    def loadRecipe(self, recipe):
-        return imp.load_source(recipe, 'recipes/' + recipe + ".py")
+    def __init__(self):
+        self.default_http_method = self.http_methods[0]
+        self.default_return_format = self.return_formats[0]
 
     def get_oauth(self):
-        return self.recipe.get_oauth()
+        raise NotImplementedError("OAuth methods need to be implemented by subclasses!")
 
     def check_connection(self):
-        return self.do(self.recipe.API_CONNECTION_CHECK[0])
-
-    def parse_method_template(self):
-        return None
+        return self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
 
     def do(self, method, content=None, headers=None, http_method=None, return_format=None):
 
-        request_body = self.recipe.DEFAULT_BODY_CONTENT
+        request_body = self.default_body_content
         if content is not None:
             request_body.update(content)
 
-        request_headers = self.recipe.DEFAULT_HEADER_CONTENT
+        request_headers = self.default_header_content
         if headers is not None:
             request_headers.update(headers)
 
         if http_method is None:
-            http_method = self.recipe.DEFAULT_HTTP_METHOD
+            http_method = self.default_http_method
 
         if return_format is None:
-            if self.recipe.DEFAULT_RETURN_FORMAT != '':
-                return_format = "." + self.recipe.DEFAULT_RETURN_FORMAT
+            if self.default_return_format:
+                return_format = "." + self.default_return_format
             else:
                 return_format = ''
 
-        request_url = self.recipe.BASE_URL + method + return_format
-        request_headers = self.recipe.DEFAULT_HEADER_CONTENT
-        request_body = self.recipe.DEFAULT_BODY_CONTENT
+        request_url = self.base_url + method + return_format
+        request_headers = self.default_header_content
+        request_body = self.default_body_content
 
         return self.do_request(http_method, request_url, request_headers, request_body, return_format)
 
     def do_request(self, http_method, url, headers, body, return_format):
 
-        if self.recipe.AUTH_TYPE == 'OAUTH1':
+        if self.auth_type == 'OAUTH1':
             auth_data = self.get_oauth()
         else:
             auth_data = None
@@ -69,13 +71,10 @@ class Pyrate(object):
         elif http_method.upper() == 'OPTIONS':
             r = requests.get(url, params=body, headers=headers, auth=auth_data)
 
-        print r
-
         return self.handle_response(r, return_format)
 
     def handle_response(self, response, return_format):
         try:
             return response.json()
-        except Exception:
+        except ValueError:
             return response.content
-        return response.content

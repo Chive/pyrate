@@ -1,5 +1,5 @@
 import base64
-from pyrate import Pyrate
+from pyrate.pyrate import Pyrate
 
 
 class HarvestPyrate(Pyrate):

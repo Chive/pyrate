@@ -2,8 +2,7 @@ from requests_oauthlib import OAuth1
 from urlparse import parse_qs
 import requests
 
-from pyrate import Pyrate
-
+from pyrate.pyrate import Pyrate
 
 class TwitterPyrate(Pyrate):
 

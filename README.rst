@@ -17,7 +17,7 @@ Usage
 -----
 ### Twitter
 ```
-from services import twitter
+from pyrate.services import twitter
 
 class myTwitterPyrate(twitter.TwitterPyrate):
     oauth_consumer_key = ''
@@ -32,7 +32,7 @@ print h.check_connection()
 ```
 ### Mailchimp
 ```
-from services import mailchimp
+from pyrate.services import mailchimp
 
 class myMailchimpPyrate(mailchimp.MailchimpPyrate):
     api_key = ''
@@ -43,7 +43,7 @@ print h.check_connection()
 ```
 ### Harvest
 ```
-from services import harvest
+from pyrate.services import harvest
 
 class myHarvestPyrate(harvest.HarvestPyrate):
     auth_user = ''

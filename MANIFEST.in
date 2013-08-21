@@ -1,0 +1,5 @@
+include LICENSE
+recursive-include pyrate/services *
+exclude pyrate/privatetests.py
+recursive-exclude * *.pyc
+recursive-exclude * .DS_Store
