@@ -19,14 +19,14 @@ Usage
 ```
 from pyrate.services import twitter
 
-class myTwitterPyrate(twitter.TwitterPyrate):
+class MyTwitterPyrate(twitter.TwitterPyrate):
     oauth_consumer_key = ''
     oauth_consumer_secret = ''
 
     oauth_token = ''
     oauth_token_secret = ''
 
-h = myTwitterPyrate()
+h = MyTwitterPyrate()
 print h.do('account/verify_credentials')
 print h.check_connection()
 ```
@@ -34,10 +34,10 @@ print h.check_connection()
 ```
 from pyrate.services import mailchimp
 
-class myMailchimpPyrate(mailchimp.MailchimpPyrate):
+class MyMailchimpPyrate(mailchimp.MailchimpPyrate):
     api_key = ''
 
-h = myMailchimpPyrate()
+h = MyMailchimpPyrate()
 print h.do('helper/ping')
 print h.check_connection()
 ```
@@ -45,12 +45,12 @@ print h.check_connection()
 ```
 from pyrate.services import harvest
 
-class myHarvestPyrate(harvest.HarvestPyrate):
+class MyHarvestPyrate(harvest.HarvestPyrate):
     auth_user = ''
     auth_pass = ''
     organisation_name = ''
 
-h = myHarvestPyrate()
+h = MyHarvestPyrate()
 print h.do('account/who_am_i')
 print h.check_connection()
 ```

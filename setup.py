@@ -28,5 +28,6 @@ setup(
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
     include_package_data=True,
-    zip_safe=False
+    zip_safe=False,
+    test_suite="pyrate.privatetests",
 )
