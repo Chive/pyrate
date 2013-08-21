@@ -13,6 +13,13 @@ Dependencies
 * [requests](http://python-requests.org)
 * [requests_oauthlib](https://github.com/requests/requests-oauthlib)
 
+Install
+-------
+```
+# so simple
+pip install pyrate
+```
+
 Usage
 -----
 ### Twitter
