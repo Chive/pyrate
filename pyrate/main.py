@@ -60,16 +60,16 @@ class Pyrate:
             r = requests.get(url, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'POST':
-            r = requests.get(url, params=body, headers=headers, auth=auth_data)
+            r = requests.post(url, params=body, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'PUT':
-            r = requests.get(url, params=body, headers=headers, auth=auth_data)
+            r = requests.put(url, params=body, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'DELETE':
-            r = requests.get(url, params=body, headers=headers, auth=auth_data)
+            r = requests.delete(url, params=body, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'OPTIONS':
-            r = requests.get(url, params=body, headers=headers, auth=auth_data)
+            r = requests.options(url, params=body, headers=headers, auth=auth_data)
 
         return self.handle_response(r, return_format)
 
