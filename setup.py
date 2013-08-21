@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from setuptools import setup
+from setuptools import setup, find_packages
 from pyrate import __version__
 
 
@@ -23,12 +23,18 @@ setup(
     author='Kim Thoenen',
     author_email='kim@smuzey.ch',
     url='https://github.com/chive/pyrate',
-    packages=['pyrate'],
+    packages=find_packages(),
     license='MIT',
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
     include_package_data=True,
     zip_safe=False,
-    test_suite="pyrate.privatetests",
-    scripts=['pyrate/scripts/pyrate']
-)
+
+    install_requires=[
+        open("requirements.txt").readlines(),
+    ],
+    entry_points={
+        'console_scripts': [
+            'pyrate = pyrate.scripts.cli:main',
+        ]
+    },)

@@ -60,7 +60,8 @@ def setup_twitter_oauth(oauth_consumer_key, oauth_consumer_secret):
 
 # When were adding more we'll use docopt!
 
-if __name__ == "__main__":
+def main():
+    os.system("clear")
     print "                         _"
     print "                        | |"
     print "   _ __  _   _ _ __ __ _| |_ ___"
