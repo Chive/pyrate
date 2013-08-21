@@ -61,3 +61,8 @@ h = MyHarvestPyrate()
 print h.do('account/who_am_i')
 print h.check_connection()
 ```
+Todos
+-----
+* Fix Twitter OAuth (currently it's read-only)
+* Create "convenience"-methods (e.g. ```h.tweet("Pyrate is awesome!")```)
+* lots and lots more
