@@ -1,5 +1,6 @@
 include LICENSE
 recursive-include pyrate/services *
+recursive-include pyrate/scripts *
 exclude pyrate/privatetests.py
 recursive-exclude * *.pyc
 recursive-exclude * .DS_Store

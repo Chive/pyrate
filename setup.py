@@ -30,5 +30,5 @@ setup(
     include_package_data=True,
     zip_safe=False,
     test_suite="pyrate.privatetests",
-    scripts=['scripts/pyrate']
+    scripts=['pyrate/scripts/pyrate']
 )
