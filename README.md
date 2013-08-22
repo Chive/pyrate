@@ -1,6 +1,6 @@
 pyrate
 ======
-Pyrate is a python wrapper for restful web apis. It's like *magic* but quicker.
+Pyrate is a python wrapper for restful web apis. It's like *magic* but simpler.
 
 Currently, the following services are implemented
 
