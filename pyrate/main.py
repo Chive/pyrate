@@ -37,12 +37,9 @@ class Pyrate:
         return new_args
 
     def check_response_success(self, response, key, value):
-        if key in response and response[key] == value:
-            return True
-        else:
-            return self.parse_errors(response['errors'])
+        raise NotImplementedError('Please implement in subclass')
 
-    def parse_errors(self, errors):
+    def parse_errors(self, response):
         raise NotImplementedError('Please implement in subclass')
 
 

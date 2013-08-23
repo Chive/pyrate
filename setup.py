@@ -19,7 +19,7 @@ CLASSIFIERS = [
 setup(
     name='pyrate',
     version=__version__,
-    description='Pyrate is a python wrapper for restful web apis. It\'s like magic but quicker.',
+    description='Pyrate is a python wrapper for restful web apis. It\'s like magic but simpler.',
     author='Kim Thoenen',
     author_email='kim@smuzey.ch',
     url='https://github.com/chive/pyrate',

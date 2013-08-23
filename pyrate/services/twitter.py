@@ -35,16 +35,25 @@ class TwitterPyrate(Pyrate):
 
     def count_fargs(self,count, fargs):
         if fargs['fargs']:
-            return self.count_fargs(count+1,fargs['fargs'])
+            return self.count_fargs(count+1, fargs['fargs'])
 
+    def check_response_success(self, response):
+        if not 'error' in response and not 'errors' in response:
+            return True
+        else:
+            return self.parse_errors(response)
 
-    def parse_errors(self, errors):
-        for error in errors:
-            print "Error: %s (Code: %s)" % (error['message'], error['code'])
-
+    def parse_errors(self, response):
+        if 'error' in response:
+            print "Error: %s" % response['error']
+        elif 'errors' in response:
+            for error in response['errors']:
+                print "Error: %s (Code: %s)" % (error['message'], error['code'])
+        else:
+            print "Error: %s" % response
 
     def tweet(self, status, in_reply_to_status_id=None, lat=None, long=None, place_id=None, display_coordinates=None,
               trim_user=None, include_entities=None):
         fargs = locals()
         res = self.do('statuses/update', http_method='POST', content=self.build_content(fargs))
-        return self.check_response_success(res, 'text', status)
+        return self.check_response_success(res)
