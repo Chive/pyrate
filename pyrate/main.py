@@ -1,3 +1,4 @@
+import json
 import requests
 
 
@@ -23,6 +24,24 @@ class Pyrate:
 
     def check_connection(self):
         return self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
+
+    # takes a dictionary, filters out all the empty stuff
+    def build_content(self, args):
+        del args['self']
+        new_args = args.copy()
+
+        for key in args:
+            if not args[key]:
+                del new_args[key]
+
+        return new_args
+
+    def check_response_success(self, response, key, value):
+        raise NotImplementedError('Please implement in subclass')
+
+    def parse_errors(self, response):
+        raise NotImplementedError('Please implement in subclass')
+
 
     def do(self, method, content=None, headers=None, http_method=None, return_format=None):
 
