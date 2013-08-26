@@ -34,8 +34,12 @@ class MyTwitterPyrate(twitter.TwitterPyrate):
     oauth_token_secret = ''
 
 h = MyTwitterPyrate()
+
 print h.do('account/verify_credentials')
+
 print h.check_connection()
+
+print h.tweet("This is awesome!")
 ```
 ### Mailchimp
 ```
@@ -45,7 +49,9 @@ class MyMailchimpPyrate(mailchimp.MailchimpPyrate):
     api_key = ''
 
 h = MyMailchimpPyrate()
+
 print h.do('helper/ping')
+
 print h.check_connection()
 ```
 ### Harvest
@@ -58,11 +64,14 @@ class MyHarvestPyrate(harvest.HarvestPyrate):
     organisation_name = ''
 
 h = MyHarvestPyrate()
+
 print h.do('account/who_am_i')
+
 print h.check_connection()
 ```
 Todos
 -----
-* Fix Twitter OAuth (currently it's read-only)
-* Create "convenience"-methods (e.g. ```h.tweet("Pyrate is awesome!")```)
+* Create more "convenience"-methods (like ```h.tweet("This is awesome!")```)
+* Implement CLI-Interface (see branch [cli-interface](https://github.com/Chive/pyrate/tree/cli-interface)
+* Add more services (Open for suggestions!)
 * lots and lots more
