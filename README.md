@@ -36,9 +36,7 @@ class MyTwitterPyrate(twitter.TwitterPyrate):
 h = MyTwitterPyrate()
 
 print h.do('account/verify_credentials')
-
 print h.check_connection()
-
 print h.tweet("This is awesome!")
 ```
 ### Mailchimp
@@ -51,7 +49,6 @@ class MyMailchimpPyrate(mailchimp.MailchimpPyrate):
 h = MyMailchimpPyrate()
 
 print h.do('helper/ping')
-
 print h.check_connection()
 ```
 ### Harvest
@@ -66,7 +63,6 @@ class MyHarvestPyrate(harvest.HarvestPyrate):
 h = MyHarvestPyrate()
 
 print h.do('account/who_am_i')
-
 print h.check_connection()
 ```
 Todos
