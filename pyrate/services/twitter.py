@@ -46,6 +46,7 @@ class TwitterPyrate(Pyrate):
         else:
             print "Error: %s" % response
 
+    # Convenience
     def tweet(self, status, in_reply_to_status_id=None, lat=None, long=None, place_id=None, display_coordinates=None,
               trim_user=None, include_entities=None):
         fargs = locals()
