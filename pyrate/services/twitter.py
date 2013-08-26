@@ -29,7 +29,8 @@ class TwitterPyrate(Pyrate):
                           resource_owner_key=self.oauth_token,
                           resource_owner_secret=self.oauth_token_secret)
         else:
-            raise Exception("Please set your oauth_token and oauth_token_secret first!")
+            raise Exception("Please set your oauth_token and oauth_token_secret first! (Use 'pyratetools'"
+                            "from command line)")
 
 
 
