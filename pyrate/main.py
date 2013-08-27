@@ -27,7 +27,8 @@ class Pyrate:
 
     # takes a dictionary, filters out all the empty stuff
     def build_content(self, args):
-        del args['self']
+        if 'self' in args:
+            del args['self']
         new_args = args.copy()
 
         for key in args:
@@ -41,7 +42,6 @@ class Pyrate:
 
     def parse_errors(self, response):
         raise NotImplementedError('Please implement in subclass')
-
 
     def do(self, method, content=None, headers=None, http_method=None, return_format=None):
 
@@ -63,8 +63,6 @@ class Pyrate:
                 return_format = ''
 
         request_url = self.base_url + method + return_format
-        request_headers = self.default_header_content
-        request_body = self.default_body_content
 
         return self.do_request(http_method, request_url, request_headers, request_body, return_format)
 
@@ -75,20 +73,26 @@ class Pyrate:
         else:
             auth_data = None
 
+        # We need to make sure that body is jsonified
+        try:
+            body = json.dumps(body)
+        except TypeError or ValueError:
+            pass
+
         if http_method.upper() == 'GET':
             r = requests.get(url, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'POST':
-            r = requests.post(url, params=body, headers=headers, auth=auth_data)
+            r = requests.post(url, data=body, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'PUT':
-            r = requests.put(url, params=body, headers=headers, auth=auth_data)
+            r = requests.put(url, data=body, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'DELETE':
-            r = requests.delete(url, params=body, headers=headers, auth=auth_data)
+            r = requests.delete(url, data=body, headers=headers, auth=auth_data)
 
         elif http_method.upper() == 'OPTIONS':
-            r = requests.options(url, params=body, headers=headers, auth=auth_data)
+            r = requests.options(url, data=body, headers=headers, auth=auth_data)
 
         return self.handle_response(r, return_format)
 

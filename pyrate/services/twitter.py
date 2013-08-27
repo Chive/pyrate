@@ -32,12 +32,6 @@ class TwitterPyrate(Pyrate):
             raise Exception("Please set your oauth_token and oauth_token_secret first! (Use 'pyratetools'"
                             "from command line)")
 
-
-
-    def count_fargs(self,count, fargs):
-        if fargs['fargs']:
-            return self.count_fargs(count+1, fargs['fargs'])
-
     def check_response_success(self, response):
         if not 'error' in response and not 'errors' in response:
             return True
@@ -53,6 +47,7 @@ class TwitterPyrate(Pyrate):
         else:
             print "Error: %s" % response
 
+    # Convenience
     def tweet(self, status, in_reply_to_status_id=None, lat=None, long=None, place_id=None, display_coordinates=None,
               trim_user=None, include_entities=None):
         fargs = locals()
