@@ -50,6 +50,8 @@ h = MyMailchimpPyrate()
 
 print h.do('helper/ping')
 print h.check_connection()
+print h.subscribeToList('ListName', 'myemail@example.com')
+print h.unsubscribeFromList('ListName', 'myemail@example.com')
 ```
 ### Harvest
 ```
