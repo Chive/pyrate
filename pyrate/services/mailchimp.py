@@ -67,8 +67,8 @@ class MailchimpPyrate(Pyrate):
                  'double_optin': double_optin, 'update_existing': update_existing,
                  'replace_interests': replace_interests, 'send_welcome': send_welcome}
 
-        res = self.do('lists/subscribe', http_method='POST', content=self.build_content(fargs))
-        return self.check_response_success(res)
+        return self.do('lists/subscribe', http_method='POST', content=self.build_content(fargs))
+        # return self.check_response_success(res)
 
     # http://apidocs.mailchimp.com/api/2.0/lists/unsubscribe.php
     def unsubscribeFromList(self, list_name, user_email, delete_member=None, send_goodbye=None, send_notify=None):
@@ -76,5 +76,5 @@ class MailchimpPyrate(Pyrate):
         fargs = {'id': list_id, 'email': {'email': user_email}, 'delete_member': delete_member, 'send_goodbye': send_goodbye,
                  'send_notify': send_notify}
 
-        res = self.do('lists/unsubscribe', http_method='POST', content=self.build_content(fargs))
-        return self.check_response_success(res)
+        return self.do('lists/unsubscribe', http_method='POST', content=self.build_content(fargs))
+        # return self.check_response_success(res)

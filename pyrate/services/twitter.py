@@ -51,5 +51,5 @@ class TwitterPyrate(Pyrate):
     def tweet(self, status, in_reply_to_status_id=None, lat=None, long=None, place_id=None, display_coordinates=None,
               trim_user=None, include_entities=None):
         fargs = locals()
-        res = self.do('statuses/update', http_method='POST', content=self.build_content(fargs))
-        return self.check_response_success(res)
+        return self.do('statuses/update', http_method='POST', content=self.build_content(fargs))
+        #return self.check_response_success(res)
