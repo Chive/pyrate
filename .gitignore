@@ -1,6 +1,7 @@
 *.py[cod]
 
-privatetests.py
+tests/credentials.py
+tests/results.py
 
 # C extensions
 *.so
