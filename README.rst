@@ -37,9 +37,9 @@ Twitter
     h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret',
                               'oauth_token', 'oauth_token_secret')
 
-    print h.do('account/verify_credentials')
-    print h.check_connection()
-    print h.tweet("This is awesome!")
+    print(h.do('account/verify_credentials'))
+    print(h.check_connection())
+    print(h.tweet("This is awesome!"))
 
 Mailchimp
 ~~~~~~~~~
@@ -50,10 +50,10 @@ Mailchimp
 
     h = mailchimp.MailchimpPyrate('apikey')
 
-    print h.do('helper/ping')
-    print h.check_connection()
-    print h.subscribeToList('ListName', 'myemail@example.com')
-    print h.unsubscribeFromList('ListName', 'myemail@example.com')
+    print(h.do('helper/ping'))
+    print(h.check_connection())
+    print(h.subscribeToList('ListName', 'myemail@example.com'))
+    print(h.unsubscribeFromList('ListName', 'myemail@example.com'))
 
 Harvest
 ~~~~~~~
@@ -64,8 +64,8 @@ Harvest
 
     h = harvest.HarvestPyrate('user', 'password', 'organisation')
 
-    print h.do('account/who_am_i')
-    print h.check_connection()
+    print(h.do('account/who_am_i'))
+    print(h.check_connection())
 
 Todos
 -----
