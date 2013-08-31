@@ -1,10 +1,9 @@
-import base64
+from base64 import b64encode
 from pyrate.main import Pyrate
 
 
 class HarvestPyrate(Pyrate):
-
-    # These variables should be set on implementation
+    # These variables must be set on instantiation
     auth_user = ''
     auth_pass = ''
     organisation_name = ''
@@ -15,10 +14,18 @@ class HarvestPyrate(Pyrate):
     auth_type = 'BASIC_AUTH'
     connection_check_method = ('GET', 'account/who_am_i')
 
-    def __init__(self):
+    def __init__(self, auth_user, auth_pass, organisation_name, default_http_method=None, default_return_format=None):
+        super(HarvestPyrate, self).__init__()
+        self.auth_user = auth_user
+        self.auth_pass = auth_pass
+        self.organisation_name = organisation_name
         self.base_url = 'https://' + self.organisation_name + '.harvestapp.com/'
-        self.default_http_method = self.http_methods[0]
-        self.default_return_format = self.return_formats[0]
         self.default_header_content = {
-            'Authorization': 'Basic ' + base64.b64encode(self.auth_user + ":" + self.auth_pass).rstrip()
+            'Authorization': 'Basic ' + b64encode(self.auth_user + ":" + self.auth_pass).rstrip()
         }
+
+        if default_http_method:
+            self.default_http_method = default_http_method
+
+        if default_return_format:
+            self.default_return_format = default_return_format

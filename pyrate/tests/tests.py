@@ -17,27 +17,17 @@ class TestSequenceFunctions(unittest.TestCase):
 
     def getHandler(self, service):
         if service == 'harvest':
-            class myHarvestPyrate(harvest.HarvestPyrate):
-                auth_user = self.credentials['harvest']['user']
-                auth_pass = self.credentials['harvest']['pass']
-                organisation_name = self.credentials['harvest']['organisation']
-
-            return myHarvestPyrate()
+            return harvest.HarvestPyrate(self.credentials['harvest']['user'], self.credentials['harvest']['pass'],
+                                         self.credentials['harvest']['organisation'])
 
         elif service == 'mailchimp':
-            class myMailchimpPyrate(mailchimp.MailchimpPyrate):
-                api_key = self.credentials['mailchimp']['apikey']
-
-            return myMailchimpPyrate()
+            return mailchimp.MailchimpPyrate(self.credentials['mailchimp']['apikey'])
 
         elif service == 'twitter':
-            class myTwitterPyrate(twitter.TwitterPyrate):
-                oauth_consumer_key = self.credentials['twitter']['oauth_consumer_key']
-                oauth_consumer_secret = self.credentials['twitter']['oauth_consumer_secret']
-                oauth_token = self.credentials['twitter']['oauth_token']
-                oauth_token_secret = self.credentials['twitter']['oauth_token_secret']
-
-            return myTwitterPyrate()
+            return twitter.TwitterPyrate(self.credentials['twitter']['oauth_consumer_key'],
+                                         self.credentials['twitter']['oauth_consumer_secret'],
+                                         self.credentials['twitter']['oauth_token'],
+                                         self.credentials['twitter']['oauth_token_secret'])
 
     def setUp(self):
         for group in self.credentials:
@@ -49,7 +39,7 @@ class TestSequenceFunctions(unittest.TestCase):
         h = self.getHandler('twitter')
 
         # if this test fails, check the output of an actual request for this geo-id
-        self.assertEqual(h.do('geo/id/df51dec6f4ee2b2c'), results['twitter']['con_do_geo'])
+        self.assertEqual(h.do('geo/id/df51dec6f4ee2b2c'), self.results['twitter']['con_do_geo'])
 
     def test_twitter_tweet(self):
         h = self.getHandler('twitter')
@@ -65,19 +55,19 @@ class TestSequenceFunctions(unittest.TestCase):
 
     def test_mailchimp_con_do(self):
         h = self.getHandler('mailchimp')
-        self.assertEqual(h.do('helper/ping'), results['mailchimp']['con_check'])
+        self.assertEqual(h.do('helper/ping'), self.results['mailchimp']['con_check'])
 
     def test_mailchimp_con_check(self):
         h = self.getHandler('mailchimp')
-        self.assertEqual(h.check_connection(), results['mailchimp']['con_check'])
+        self.assertEqual(h.check_connection(), self.results['mailchimp']['con_check'])
 
     def test_harvest_con_do(self):
         h = self.getHandler('harvest')
-        self.assertEqual(h.do('account/who_am_i'), results['harvest']['con_check'])
+        self.assertEqual(h.do('account/who_am_i'), self.results['harvest']['con_check'])
 
     def test_harvest_con_check(self):
         h = self.getHandler('harvest')
-        self.assertEqual(h.check_connection(), results['harvest']['con_check'])
+        self.assertEqual(h.check_connection(), self.results['harvest']['con_check'])
 
 
 if __name__ == '__main__':

@@ -2,8 +2,7 @@ import json
 import requests
 
 
-class Pyrate:
-
+class Pyrate(object):
     http_methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     return_formats = ['json']
     default_header_content = None
@@ -12,7 +11,6 @@ class Pyrate:
     default_return_format = None
     connection_check_method = None
     auth_type = None
-    api_key = None
     base_url = None
 
     def __init__(self):
@@ -93,6 +91,9 @@ class Pyrate:
 
         elif http_method.upper() == 'OPTIONS':
             r = requests.options(url, data=body, headers=headers, auth=auth_data)
+
+        else:
+            raise Exception("Invalid request method")
 
         return self.handle_response(r, return_format)
 

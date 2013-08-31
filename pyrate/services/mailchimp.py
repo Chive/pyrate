@@ -1,9 +1,8 @@
-import json
 from pyrate.main import Pyrate
 
-class MailchimpPyrate(Pyrate):
 
-    # This variable should be set on implementation
+class MailchimpPyrate(Pyrate):
+    # This variable must be set on instantiation
     api_key = ''
 
     http_methods = ['POST']
@@ -13,13 +12,19 @@ class MailchimpPyrate(Pyrate):
     auth_type = 'API_KEY'
     connection_check_method = ('POST', 'helper/ping')
 
-    def __init__(self):
-        self.default_http_method = self.http_methods[0]
-        self.default_return_format = self.return_formats[0]
+    def __init__(self, apikey, default_http_method=None, default_return_format=None):
+        super(MailchimpPyrate, self).__init__()
+        self.api_key = apikey
         self.base_url = 'https://' + self.api_key[-3:] + '.api.mailchimp.com/2.0/'
         self.default_body_content = {
             'apikey': self.api_key
         }
+
+        if default_http_method:
+            self.default_http_method = default_http_method
+
+        if default_return_format:
+            self.default_return_format = default_return_format
 
     def check_response_success(self, response):
         if 'error' not in response:

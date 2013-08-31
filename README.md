@@ -26,14 +26,7 @@ Usage
 ```
 from pyrate.services import twitter
 
-class MyTwitterPyrate(twitter.TwitterPyrate):
-    oauth_consumer_key = ''
-    oauth_consumer_secret = ''
-
-    oauth_token = ''
-    oauth_token_secret = ''
-
-h = MyTwitterPyrate()
+h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret', 'oauth_token', 'oauth_token_secret')
 
 print h.do('account/verify_credentials')
 print h.check_connection()
@@ -43,10 +36,7 @@ print h.tweet("This is awesome!")
 ```
 from pyrate.services import mailchimp
 
-class MyMailchimpPyrate(mailchimp.MailchimpPyrate):
-    api_key = ''
-
-h = MyMailchimpPyrate()
+h = mailchimp.MailchimpPyrate('apikey')
 
 print h.do('helper/ping')
 print h.check_connection()
@@ -57,12 +47,7 @@ print h.unsubscribeFromList('ListName', 'myemail@example.com')
 ```
 from pyrate.services import harvest
 
-class MyHarvestPyrate(harvest.HarvestPyrate):
-    auth_user = ''
-    auth_pass = ''
-    organisation_name = ''
-
-h = MyHarvestPyrate()
+h = harvest.HarvestPyrate('user', 'password', 'organisation')
 
 print h.do('account/who_am_i')
 print h.check_connection()

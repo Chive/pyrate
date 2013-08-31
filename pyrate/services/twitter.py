@@ -1,5 +1,4 @@
 from requests_oauthlib import OAuth1
-
 from pyrate.main import Pyrate
 
 
@@ -15,11 +14,25 @@ class TwitterPyrate(Pyrate):
     auth_type = 'OAUTH1'
     connection_check_method = ('GET', 'account/verify_credentials')
 
-    # These variables should be set on implementation
+    # These variables must be set on instantiation
     oauth_consumer_key = ''
     oauth_consumer_secret = ''
     oauth_token = ''
     oauth_token_secret = ''
+
+    def __init__(self, oauth_consumer_key, oauth_consumer_secret, oauth_token, oauth_token_secret,
+                 default_http_method=None, default_return_format=None):
+        super(TwitterPyrate, self).__init__()
+        self.oauth_consumer_key = oauth_consumer_key
+        self.oauth_consumer_secret = oauth_consumer_secret
+        self.oauth_token = oauth_token
+        self.oauth_token_secret = oauth_token_secret
+
+        if default_http_method:
+            self.default_http_method = default_http_method
+
+        if default_return_format:
+            self.default_return_format = default_return_format
 
     # Essential Stuff
     def get_oauth(self):
@@ -47,9 +60,14 @@ class TwitterPyrate(Pyrate):
         else:
             print "Error: %s" % response
 
+        return False
+
     # Convenience
-    def tweet(self, status, in_reply_to_status_id=None, lat=None, long=None, place_id=None, display_coordinates=None,
+    def tweet(self, status, in_reply_to_status_id=None, loc_lat=None, loc_long=None, place_id=None,
+              display_coordinates=None,
               trim_user=None, include_entities=None):
-        fargs = locals()
-        return self.do('statuses/update', http_method='POST', content=self.build_content(fargs))
-        #return self.check_response_success(res)
+        fargs = {'status': status, 'in_reply_to_status_id': in_reply_to_status_id, 'lat': loc_lat, 'long': loc_long,
+                 'place_id': place_id, 'display_coordinates': display_coordinates, 'trim_user': trim_user,
+                 'include_entities': include_entities}
+        res = self.do('statuses/update', http_method='POST', content=self.build_content(fargs))
+        return self.check_response_success(res)
