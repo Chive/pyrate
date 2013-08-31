@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages
 from pyrate import __version__
 
 
 CLASSIFIERS = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     'Environment :: Web Environment',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
@@ -20,6 +21,7 @@ setup(
     name='pyrate',
     version=__version__,
     description='Pyrate is a python wrapper for restful web apis. It\'s like magic but simpler.',
+    long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
     author='Kim Thoenen',
     author_email='kim@smuzey.ch',
     url='https://github.com/chive/pyrate',
