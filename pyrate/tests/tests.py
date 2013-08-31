@@ -1,9 +1,10 @@
 from random import randrange
 import unittest
+import sys
+import os
 
+sys.path.append('../pyrate')  # we want the local version and not the installed one
 from pyrate.services import twitter, harvest, mailchimp
-import credentials
-import results
 
 
 # In order to use these tests you need to:
@@ -12,8 +13,22 @@ import results
 
 class TestSequenceFunctions(unittest.TestCase):
 
-    credentials = credentials.credentials
-    results = results.results
+    try:
+        travis = os.environ['TRAVIS']
+    except KeyError:
+        travis = False
+
+    if travis:
+        f = open('pyrate/tests/travis_credentials')
+        cipher = f.read()
+        from Crypto.Cipher import AES
+        import pickle
+        decrypter = AES.new(os.environ['crypt_key'], AES.MODE_CBC, os.environ['crypt_iv'])
+        credentials = pickle.loads(decrypter.decrypt(cipher))
+
+    else:
+        import credentials
+        credentials = credentials.credentials
 
     def getHandler(self, service):
         if service == 'harvest':
@@ -37,9 +52,7 @@ class TestSequenceFunctions(unittest.TestCase):
 
     def test_twitter_con_do_geo(self):
         h = self.getHandler('twitter')
-
-        # if this test fails, check the output of an actual request for this geo-id
-        self.assertEqual(h.do('geo/id/df51dec6f4ee2b2c'), self.results['twitter']['con_do_geo'])
+        self.assertTrue('geometry' in h.do('geo/id/df51dec6f4ee2b2c'))
 
     def test_twitter_tweet(self):
         h = self.getHandler('twitter')
@@ -51,23 +64,25 @@ class TestSequenceFunctions(unittest.TestCase):
             text += "o"
         text += " great! #pyrate https://github.com/Chive/pyrate"
 
-        self.assertEqual(h.tweet(text), True)
+        self.assertTrue(h.tweet(text))
 
     def test_mailchimp_con_do(self):
         h = self.getHandler('mailchimp')
-        self.assertEqual(h.do('helper/ping'), self.results['mailchimp']['con_check'])
+        self.assertEqual(h.do('helper/ping'), {u'msg': u"Everything's Chimpy!"})
 
     def test_mailchimp_con_check(self):
         h = self.getHandler('mailchimp')
-        self.assertEqual(h.check_connection(), self.results['mailchimp']['con_check'])
+        self.assertEqual(h.check_connection(), {u'msg': u"Everything's Chimpy!"})
 
     def test_harvest_con_do(self):
         h = self.getHandler('harvest')
-        self.assertEqual(h.do('account/who_am_i'), self.results['harvest']['con_check'])
+        res = h.do('account/who_am_i')
+        self.assertTrue('company' in res and 'user' in res)
 
     def test_harvest_con_check(self):
         h = self.getHandler('harvest')
-        self.assertEqual(h.check_connection(), self.results['harvest']['con_check'])
+        res = h.check_connection()
+        self.assertTrue('company' in res and 'user' in res)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,9 @@
 *.py[cod]
 
-tests/credentials.py
-tests/results.py
+pyrate/tests/credentials.py
+travis_creds.sh
+doc/
+env/
 
 # C extensions
 *.so
