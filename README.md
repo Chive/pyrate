@@ -26,7 +26,8 @@ Usage
 ```
 from pyrate.services import twitter
 
-h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret', 'oauth_token', 'oauth_token_secret')
+h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret',
+                          'oauth_token', 'oauth_token_secret')
 
 print h.do('account/verify_credentials')
 print h.check_connection()
