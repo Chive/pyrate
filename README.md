@@ -26,7 +26,8 @@ Usage
 ```
 from pyrate.services import twitter
 
-h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret', 'oauth_token', 'oauth_token_secret')
+h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret',
+                          'oauth_token', 'oauth_token_secret')
 
 print h.do('account/verify_credentials')
 print h.check_connection()
@@ -57,4 +58,5 @@ Todos
 * Create more "convenience"-methods (like ```h.tweet("This is awesome!")```)
 * Implement CLI-Interface (see branch [cli-interface](https://github.com/Chive/pyrate/tree/cli-interface)
 * Add more services (Open for suggestions!)
+* Create Documentation
 * lots and lots more
