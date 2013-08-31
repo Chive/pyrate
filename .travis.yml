@@ -1,0 +1,15 @@
+notifications: 
+  email: false
+python: 
+- 2.6
+- 2.7
+- 3.3
+env: 
+  global: 
+    secure: OGkOKqR28rQf6G7UOn1DJAgRWvEHhYOrl/gwKrsW7z4Fs7o6bwQf2MxW3fwsbLsl/z41/6KKWpagVUbDqCBOQdnBrCRhzyNlW23LyiStQSkVbTOFQ8xrjbyYW8HkMp4+8ncQlUB6jj40fuVhS3/6nLMX4OFDVnT6ZmJiYYgAaso=
+script: 
+- python pyrate/tests/tests.py
+language: python
+install: 
+- pip install pycrypto
+- pip install -r requirements.txt

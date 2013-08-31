@@ -12,6 +12,7 @@ class Pyrate(object):
     connection_check_method = None
     auth_type = None
     base_url = None
+    send_json = False
 
     def __init__(self):
         self.default_http_method = self.http_methods[0]
@@ -71,11 +72,12 @@ class Pyrate(object):
         else:
             auth_data = None
 
-        # We need to make sure that body is jsonified
-        try:
-            body = json.dumps(body)
-        except TypeError or ValueError:
-            pass
+        if self.send_json:
+            # We need to make sure that body is jsonified
+            try:
+                body = json.dumps(body)
+            except TypeError or ValueError:
+                pass
 
         if http_method.upper() == 'GET':
             r = requests.get(url, headers=headers, auth=auth_data)
