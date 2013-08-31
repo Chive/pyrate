@@ -7,21 +7,21 @@ from urlparse import parse_qs
 
 
 def twitter_oauth():
-    print
-    print
-    print
+    print()
+    print()
+    print()
     os.system("clear")
-    print "Twitter OAuth"
-    print "-------------"
-    print
+    print("Twitter OAuth")
+    print("-------------")
+    print()
     oauth_consumer_key = raw_input("Please enter your OAuth Consumer Key: ")
     oauth_consumer_secret = raw_input("Please enter your OAuth Consumer Secret: ")
 
     oauth_token, oauth_token_secret = setup_twitter_oauth(oauth_consumer_key, oauth_consumer_secret)
 
-    print "These are your OAuth tokens. You need them for the TwitterPyrate."
-    print "OAuth Token: " + oauth_token
-    print "OAuth Token Secret: " + oauth_token_secret
+    print("These are your OAuth tokens. You need them for the TwitterPyrate.")
+    print("OAuth Token: " + oauth_token)
+    print("OAuth Token Secret: " + oauth_token_secret)
 
 def setup_twitter_oauth(oauth_consumer_key, oauth_consumer_secret):
 
@@ -40,8 +40,8 @@ def setup_twitter_oauth(oauth_consumer_key, oauth_consumer_secret):
 
     # Authorize
     authorize_url = oauth_authorize_url + resource_owner_key
-    print 'Please go here to authorize:'
-    print authorize_url
+    print('Please go here to authorize:')
+    print(authorize_url)
 
     verifier = raw_input('Please input the verifier: ')
     oauth = OAuth1(oauth_consumer_key,
@@ -59,28 +59,27 @@ def setup_twitter_oauth(oauth_consumer_key, oauth_consumer_secret):
     return token, secret
 
 # When were adding more we'll use docopt!
-
 def main():
     os.system("clear")
-    print "                         _"
-    print "                        | |"
-    print "   _ __  _   _ _ __ __ _| |_ ___"
-    print "  | '_ \| | | | '__/ _` | __/ _ \ "
-    print "  | |_) | |_| | | | (_| | ||  __/"
-    print "  | .__/ \__, |_|  \__,_|\__\___|"
-    print "  | |     __/ |"
-    print "  |_|    |___/"
-    print
-    print
+    print("                         _")
+    print("                        | |")
+    print("   _ __  _   _ _ __ __ _| |_ ___")
+    print("  | '_ \| | | | '__/ _` | __/ _ \ ")
+    print("  | |_) | |_| | | | (_| | ||  __/")
+    print("  | .__/ \__, |_|  \__,_|\__\___|")
+    print("  | |     __/ |")
+    print("  |_|    |___/")
+    print()
+    print()
 
-    print "# These is Pyrate's commandline tool. For the usage of pyrate,"
-    print "# please read the docs: https://github.com/Chive/pyrate"
-    print ""
-    print
-    print "# Tasks"
-    print "1 Generate Twitter OAuth Tokens"
-    print "0 Exit"
-    print
+    print("# These is Pyrate's commandline tool. For the usage of pyrate,")
+    print("# please read the docs: https://github.com/Chive/pyrate")
+    print("")
+    print()
+    print("# Tasks")
+    print("1 Generate Twitter OAuth Tokens")
+    print("0 Exit")
+    print()
     c = raw_input("Your Choice: ")
 
     if c == '1':

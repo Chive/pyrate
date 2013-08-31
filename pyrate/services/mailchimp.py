@@ -40,13 +40,13 @@ class MailchimpPyrate(Pyrate):
 
     def parse_errors(self, response):
         if 'error' in response:
-            print "Error: %s (Code: %s)" % (response['error'], response['code'])
+            print("Error: %s (Code: %s)" % (response['error'], response['code']))
         elif 'errors' in response:
             for error in response['errors']:
-                print "Error: %s (Code: %s)" % (error['error'], error['code'])
-                print error['param']
+                print("Error: %s (Code: %s)" % (error['error'], error['code']))
+                print(error['param'])
         else:
-            print "Error: %s" % response
+            print("Error: %s" % response)
 
     # http://apidocs.mailchimp.com/api/2.0/lists/list.php
     def getLists(self, filters=None, start=None, limit=None, sort_field=None, sort_dir=None):

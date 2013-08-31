@@ -53,12 +53,12 @@ class TwitterPyrate(Pyrate):
 
     def parse_errors(self, response):
         if 'error' in response:
-            print "Error: %s" % response['error']
+            print("Error: %s" % response['error'])
         elif 'errors' in response:
             for error in response['errors']:
-                print "Error: %s (Code: %s)" % (error['message'], error['code'])
+                print("Error: %s (Code: %s)" % (error['message'], error['code']))
         else:
-            print "Error: %s" % response
+            print("Error: %s" % response)
 
         return False
 
