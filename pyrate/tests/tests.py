@@ -61,7 +61,7 @@ class TestSequenceFunctions(unittest.TestCase):
         rand = ''.join(choice('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(16))
         text = "Testing #pyrate https://chive.github.io/pyrate [" + rand + "]"
         res = h.tweet(text)
-
+        
         self.assertTrue(res)
 
     def test_mailchimp_con_do(self):
