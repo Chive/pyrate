@@ -7,14 +7,17 @@ from pyrate import __version__
 
 CLASSIFIERS = [
     'Development Status :: 4 - Beta',
+    'Environment :: Console',
     'Environment :: Web Environment',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
+    'Natural Language :: English',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 3',
     'Topic :: Communications',
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-    'Programming Language :: Python',
 ]
 
 setup(
