@@ -1,6 +1,10 @@
 from pyrate.main import Pyrate
 
 
+class ListNotFoundError(Exception):
+    pass
+
+
 class MailchimpPyrate(Pyrate):
     # This variable must be set on instantiation
     api_key = ''
@@ -62,6 +66,9 @@ class MailchimpPyrate(Pyrate):
         for l in lists:
             if l['name'] == list_name:
                 return l
+
+        # else
+        raise ListNotFoundError()
 
     # http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php
     def subscribeToList(self, list_name, user_email, merge_vars=None, email_type=None, double_optin=None, update_existing=None,

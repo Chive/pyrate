@@ -1,7 +1,7 @@
 *.py[cod]
 
 pyrate/tests/credentials.py
-travis_creds.sh
+gen_travis_creds.py
 doc/
 env/
 
