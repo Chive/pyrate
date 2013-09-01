@@ -1,4 +1,4 @@
-from random import randrange
+from random import choice
 import unittest
 import sys
 import os
@@ -57,14 +57,12 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_twitter_tweet(self):
         h = self.getHandler('twitter')
 
-        # to prevent duplicate statuses we use a random amount of o's in "so"
-        text = "Pyrate is s"
-        i = 0
-        while i < randrange(5):
-            text += "o"
-        text += " great! #pyrate https://github.com/Chive/pyrate"
+        # to prevent duplicate statuses we use a random string
+        rand = ''.join(choice('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(16))
+        text = "Testing #pyrate https://chive.github.io/pyrate [" + rand + "]"
+        res = h.tweet(text)
 
-        self.assertTrue(h.tweet(text))
+        self.assertTrue(res)
 
     def test_mailchimp_con_do(self):
         h = self.getHandler('mailchimp')
