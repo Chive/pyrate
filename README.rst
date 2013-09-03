@@ -79,6 +79,9 @@ Github
 
     print(h.do('#'))
     print(h.check_connection())
+    h.create_repo('name', 'description', private=True)
+    h.create_repo('name', 'description', 'organisation')
+    h.delete_repo('name')
 
 Todos
 -----
