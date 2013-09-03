@@ -1,5 +1,7 @@
+from base64 import b64encode
 import json
 import requests
+import sys
 
 
 class Pyrate(object):
@@ -17,6 +19,20 @@ class Pyrate(object):
     def __init__(self):
         self.default_http_method = self.http_methods[0]
         self.default_return_format = self.return_formats[0]
+
+    def create_basic_auth(self, user, password):
+        # Messing around with Python3's strictness about strings
+        if sys.version_info >= (3, 0):
+            if not isinstance(user, str):
+                user = user.decode('utf-8')
+
+            if not isinstance(password, str):
+                password = password.decode('utf-8')
+
+            return 'Basic ' + b64encode((user + ":" + password).encode('utf-8')).decode('utf-8')
+
+        else:
+            return 'Basic ' + b64encode(user + ":" + password).rstrip()
 
     def get_oauth(self):
         raise NotImplementedError("OAuth methods need to be implemented by subclasses!")

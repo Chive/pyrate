@@ -1,5 +1,3 @@
-from base64 import b64encode
-import sys
 from pyrate.main import Pyrate
 
 
@@ -21,26 +19,8 @@ class HarvestPyrate(Pyrate):
         self.auth_pass = auth_pass
         self.organisation_name = organisation_name
         self.base_url = 'https://' + self.organisation_name + '.harvestapp.com/'
-
-        # Messing around with Python3's strictness about strings
-        if sys.version_info >= (3, 0):
-            if isinstance(auth_user, str):
-                auth_user = self.auth_user
-            else:
-                auth_user = self.auth_user.decode('utf-8')
-
-            if isinstance(auth_pass, str):
-                auth_pass = self.auth_pass
-            else:
-                auth_pass = self.auth_pass.decode('utf-8')
-
-            auth = b64encode((auth_user + ":" + auth_pass).encode('utf-8')).decode('utf-8')
-
-        else:
-            auth = b64encode(self.auth_user + ":" + self.auth_pass).rstrip()
-
         self.default_header_content = {
-            'Authorization': 'Basic ' + auth
+            'Authorization': self.create_basic_auth(self.auth_user, self.auth_pass)
         }
 
         if default_http_method:
