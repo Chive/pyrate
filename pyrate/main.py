@@ -18,7 +18,10 @@ class Pyrate(object):
 
     def __init__(self):
         self.default_http_method = self.http_methods[0]
-        self.default_return_format = self.return_formats[0]
+        try:
+            self.default_return_format = self.return_formats[0]
+        except IndexError:
+            self.default_return_format = ''
 
     def create_basic_auth(self, user, password):
         # Messing around with Python3's strictness about strings
