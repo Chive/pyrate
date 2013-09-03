@@ -2,6 +2,7 @@ from random import choice
 import unittest
 import sys
 import os
+from services import github
 
 sys.path.append('../pyrate')  # we want the local version and not the installed one
 from pyrate.services import github, harvest, mailchimp, twitter
