@@ -9,6 +9,7 @@ Currently, the following services are implemented
 -  Twitter (v1.1 + OAuth)
 -  Mailchimp (v2)
 -  Harvest
+-  Github
 
 Dependencies
 ------------
@@ -65,6 +66,18 @@ Harvest
     h = harvest.HarvestPyrate('user', 'password', 'organisation')
 
     print(h.do('account/who_am_i'))
+    print(h.check_connection())
+
+Github
+~~~~~~
+
+::
+
+    from pyrate.services import github
+
+    h = github.GithubPyrate('user', 'password')
+
+    print(h.do('#'))
     print(h.check_connection())
 
 Todos
