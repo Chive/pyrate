@@ -92,7 +92,6 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_github_con_check(self):
         h = self.getHandler('github')
         res = h.check_connection()
-        print(res)
         self.assertTrue('current_user_url' in res)
 
 
