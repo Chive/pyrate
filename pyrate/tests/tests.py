@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append('../pyrate')  # we want the local version and not the installed one
-from pyrate.services import twitter, harvest, mailchimp
+from pyrate.services import github, harvest, mailchimp, twitter
 
 
 # In order to use these tests you need to:
@@ -31,7 +31,9 @@ class TestSequenceFunctions(unittest.TestCase):
         credentials = credentials.credentials
 
     def getHandler(self, service):
-        if service == 'harvest':
+        if service == 'github':
+            return github.GithubPyrate(self.credentials['github']['user'], self.credentials['github']['pass'])
+        elif service == 'harvest':
             return harvest.HarvestPyrate(self.credentials['harvest']['user'], self.credentials['harvest']['pass'],
                                          self.credentials['harvest']['organisation'])
 
@@ -81,6 +83,17 @@ class TestSequenceFunctions(unittest.TestCase):
         h = self.getHandler('harvest')
         res = h.check_connection()
         self.assertTrue('company' in res and 'user' in res)
+
+    def test_github_con_do(self):
+        h = self.getHandler('github')
+        res = h.do('#')
+        self.assertTrue('current_user_url' in res)
+
+    def test_github_con_check(self):
+        h = self.getHandler('github')
+        res = h.check_connection()
+        print(res)
+        self.assertTrue('current_user_url' in res)
 
 
 if __name__ == '__main__':
