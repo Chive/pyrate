@@ -3,6 +3,7 @@ import json
 import requests
 import sys
 
+__docformat__ = 'restructuredtext en'
 
 class Pyrate(object):
     http_methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
@@ -25,6 +26,12 @@ class Pyrate(object):
 
     def create_basic_auth(self, user, password):
         # Messing around with Python3's strictness about strings
+        """
+        Creates the header content for HTTP Basic Authentification
+        :param user:
+        :param password:
+        :return: header content
+        """
         if sys.version_info >= (3, 0):
             if not isinstance(user, str):
                 user = user.decode('utf-8')
