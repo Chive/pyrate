@@ -2,7 +2,8 @@ include LICENSE
 include requirements.txt
 recursive-include pyrate/services *
 recursive-include pyrate/scripts *
+recursive-include pyrate/tests *
 exclude pyrate/tests/credentials.py
-exclude pyrate/tests/travis_credentials
+exclude pyrate/utils/gen_travis_creds.py
 recursive-exclude * *.pyc
 recursive-exclude * .DS_Store

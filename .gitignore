@@ -1,8 +1,8 @@
 *.py[cod]
 
 pyrate/tests/credentials.py
-pyrate/tests/travis_credentials
-gen_travis_creds.py
+pyrate/tests/
+utils/gen_travis_creds.py
 env/
 
 # C extensions
