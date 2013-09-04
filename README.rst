@@ -1,6 +1,15 @@
 pyrate
 ======
 
+.. image:: https://pypip.in/v/pyrate/badge.png
+    :target: https://crate.io/packages/pyrate/
+    :alt: Latest PyPI version
+
+.. image:: https://pypip.in/d/pyrate/badge.png
+    :target: https://crate.io/packages/pyrate/
+    :alt: Number of PyPI downloads
+    
+
 Pyrate is a python wrapper for restful web apis. It's like *magic* but
 simpler.
 
