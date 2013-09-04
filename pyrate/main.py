@@ -50,8 +50,8 @@ class Pyrate(object):
     def check_connection(self):
         return self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
 
-    # takes a dictionary, filters out all the empty stuff
     def build_content(self, args):
+         # takes a dictionary, filters out all the empty stuff
         if 'self' in args:
             del args['self']
         new_args = args.copy()
