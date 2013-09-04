@@ -27,7 +27,10 @@ class TestSequenceFunctions(unittest.TestCase):
         credentials = pickle.loads(decrypter.decrypt(cipher))
 
     else:
-        import credentials
+        try:
+            import credentials
+        except ImportError:
+            raise ImportError("Module credentials could not be found. You probably have to modify the template first.")
         credentials = credentials.credentials
 
     def getHandler(self, service):

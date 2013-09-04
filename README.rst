@@ -11,6 +11,8 @@ Currently, the following services are implemented
 -  Harvest
 -  Github
 
+There's a quick-start guide below, for full documentation (WIP) visit: `http://pyrate.readthedocs.org/en/latest/ <http://pyrate.readthedocs.org/en/latest/>`__
+
 Dependencies
 ------------
 
@@ -25,8 +27,8 @@ Install
     # so simple
     pip install pyrate
 
-Usage
------
+Quick Start
+-----------
 
 Twitter
 ~~~~~~~

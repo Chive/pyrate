@@ -8,3 +8,4 @@ python generate_modules_func.py --suffix=rst --dest-dir=../docs/source/modules .
 cd ../docs/
 make clean
 make html
+chrome build/html/index.html

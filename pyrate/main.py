@@ -3,9 +3,23 @@ import json
 import requests
 import sys
 
-__docformat__ = 'restructuredtext en'
+__docformat__ = 'sphinx en'
 
 class Pyrate(object):
+    """This is the main class
+
+    :param list http_methods: List of available HTTP methods for this service
+    :param list return_formats: List of available return formats for this service
+    :param default_header_content: Default content for the request header
+    :param default_body_content: Default content for the request body
+    :param string default_http_method: Default HTTP method (will be used if none else is specified in request)
+    :param string default_return_format: Default return format (will be used if none else is specified in request)
+    :param string connection_check_method: Used by :func:`check_connection`
+    :param string auth_type: The authentification type. Obsolete.
+    :param string base_url: The base url for all api requests
+    :param bool send_json: Whether the request body should be encoded with json
+    """
+
     http_methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
     return_formats = ['json']
     default_header_content = None
@@ -25,13 +39,14 @@ class Pyrate(object):
             self.default_return_format = ''
 
     def create_basic_auth(self, user, password):
+        """Creates the header content for HTTP Basic Authentification.
+
+        :param user: Username
+        :param password: Password
+        :rtype: Base64-encoded auth string
+        """
+
         # Messing around with Python3's strictness about strings
-        """
-        Creates the header content for HTTP Basic Authentification
-        :param user:
-        :param password:
-        :return: header content
-        """
         if sys.version_info >= (3, 0):
             if not isinstance(user, str):
                 user = user.decode('utf-8')
