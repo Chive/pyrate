@@ -145,3 +145,19 @@ class Pyrate(object):
             return response.json()
         except ValueError:
             return response.content
+
+    #Proxy functions for useability
+    def get(self, method, content=None, headers=None, return_format=None):
+        return self.do(method, content, headers, 'GET', return_format)
+
+    def post(self, method, content=None, headers=None, return_format=None):
+        return self.do(method, content, headers, 'POST', return_format)
+
+    def put(self, method, content=None, headers=None, return_format=None):
+        return self.do(method, content, headers, 'PUT', return_format)
+
+    def delete(self, method, content=None, headers=None, return_format=None):
+        return self.do(method, content, headers, 'DELETE', return_format)
+
+    def options(self, method, content=None, headers=None, return_format=None):
+        return self.do(method, content, headers, 'OPTIONS', return_format)
