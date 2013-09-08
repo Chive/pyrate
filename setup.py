@@ -41,5 +41,7 @@ setup(
     entry_points={
         'console_scripts': [
             'pyratetools = pyrate.scripts.cliutils:main',
+            # 'pyrate = pyrate.scripts.cli:main',
         ]
-    },)
+    }
+)
