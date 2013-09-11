@@ -15,10 +15,10 @@ simpler.
 
 Currently, the following services are implemented
 
--  Twitter (v1.1 + OAuth)
--  Mailchimp (v2)
--  Harvest
--  Github
+-  `Github <#github>`__
+-  `Harvest <#harvest>`__
+-  `Mailchimp (v2) <#mailchimp>`__
+-  `Twitter (v1.1 + OAuth) <#twitter>`__
 
 There's a quick-start guide below, for full documentation (WIP) visit: `http://pyrate.readthedocs.org/en/latest/ <http://pyrate.readthedocs.org/en/latest/>`__
 
@@ -51,7 +51,7 @@ Twitter
 
     print(h.do('account/verify_credentials'))
     print(h.check_connection())
-    print(h.tweet("This is awesome!"))
+    h.tweet("This is awesome!")
 
 Mailchimp
 ~~~~~~~~~
@@ -64,8 +64,8 @@ Mailchimp
 
     print(h.do('helper/ping'))
     print(h.check_connection())
-    print(h.subscribeToList('ListName', 'myemail@example.com'))
-    print(h.unsubscribeFromList('ListName', 'myemail@example.com'))
+    h.subscribeToList('ListName', 'myemail@example.com')
+    h.unsubscribeFromList('ListName', 'myemail@example.com')
 
 Harvest
 ~~~~~~~
@@ -100,8 +100,8 @@ Todos
 -  Create more "convenience"-methods (like
    ``h.tweet("This is awesome!")``)
 -  Implement CLI-Interface (see branch
-   `cli-interface <https://github.com/Chive/pyrate/tree/cli-interface>`__
+   `feature/cli <https://github.com/Chive/pyrate/tree/feature/cli>`__)
 -  Add more services (Open for suggestions!)
--  Create Documentation
+-  Expand Documentation
 -  lots and lots more
 
