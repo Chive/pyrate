@@ -21,7 +21,7 @@ class Pyrate(object):
     """
 
     http_methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-    return_formats = ['json']
+    return_formats = []
     default_header_content = None
     default_body_content = None
     default_http_method = None
