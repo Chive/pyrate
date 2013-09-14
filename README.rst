@@ -100,7 +100,7 @@ Todos
 -  Create more "convenience"-methods (like
    ``h.tweet("This is awesome!")``)
 -  Implement CLI-Interface (see branch
-   `cli-interface <https://github.com/Chive/pyrate/tree/cli-interface>`__
+   `feature/cli <https://github.com/Chive/pyrate/tree/feature/cli>`__
 -  Add more services (Open for suggestions!)
 -  Create Documentation
 -  lots and lots more
