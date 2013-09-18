@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append('../pyrate')  # we want the local version and not the installed one
-from pyrate.services import github, harvest, mailchimp, twitter
+from pyrate.services import basecamp, github, harvest, mailchimp, twitter
 
 
 # In order to use these tests you need to:
@@ -36,6 +36,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def getHandler(self, service):
         if service == 'github':
             return github.GithubPyrate(self.credentials['github']['user'], self.credentials['github']['pass'])
+
         elif service == 'harvest':
             return harvest.HarvestPyrate(self.credentials['harvest']['user'], self.credentials['harvest']['pass'],
                                          self.credentials['harvest']['organisation'])
@@ -48,6 +49,11 @@ class TestSequenceFunctions(unittest.TestCase):
                                          self.credentials['twitter']['oauth_consumer_secret'],
                                          self.credentials['twitter']['oauth_token'],
                                          self.credentials['twitter']['oauth_token_secret'])
+
+        elif service == 'basecamp':
+            return basecamp.BasecampPyrate(self.credentials['basecamp']['user'],
+                                           self.credentials['basecamp']['pass'],
+                                           self.credentials['basecamp']['org_id'])
 
     def setUp(self):
         for group in self.credentials:
@@ -97,6 +103,35 @@ class TestSequenceFunctions(unittest.TestCase):
         res = h.check_connection()
         self.assertTrue('current_user_url' in res)
 
+    def test_basecamp_con_check(self):
+        h = self.getHandler('basecamp')
+        self.assertTrue(h.check_connection())
+
+
+    # Test Suites (Somehow not working?!)
+    '''
+    test_basecamp = unittest.TestSuite()
+    test_basecamp.addTests(test_basecamp_con_check)
+
+    test_github = unittest.TestSuite()
+    test_github.addTests(test_github_con_check)
+    test_github.addTests(test_github_con_do)
+
+    test_harvest = unittest.TestSuite()
+    test_harvest.addTests(test_harvest_con_check)
+    test_harvest.addTests(test_harvest_con_do)
+
+    test_mailchimp = unittest.TestSuite()
+    test_mailchimp.addTests(test_mailchimp_con_check)
+    test_mailchimp.addTests(test_mailchimp_con_do)
+
+    test_twitter = unittest.TestSuite()
+    test_twitter.addTests(test_twitter_con_do_geo)
+    test_twitter.addTests(test_twitter_tweet)
+
+    alltests = unittest.TestSuite([test_basecamp, test_github, test_harvest, test_mailchimp, test_twitter])
+    '''
 
 if __name__ == '__main__':
+    #unittest.TextTestRunner().run(test_basecamp)
     unittest.main()

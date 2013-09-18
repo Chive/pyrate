@@ -17,6 +17,7 @@ Currently, the following services are implemented
 
 -  `Github <#github>`__
 -  `Harvest <#harvest>`__
+-  `Basecamp <#basecamp>`__
 -  `Mailchimp (v2) <#mailchimp>`__
 -  `Twitter (v1.1 + OAuth) <#twitter>`__
 
@@ -93,6 +94,18 @@ Github
     h.create_repo('name', 'description', private=True)
     h.create_repo('name', 'description', 'organisation')
     h.delete_repo('name')
+
+Basecamp
+~~~~~~
+
+::
+
+    from pyrate.services import basecamp
+
+    h = basecamp.BasecampPyrate('user', 'password', 'org_id')
+
+    print(h.do('projects'))
+    h.check_connection()
 
 Todos
 -----
