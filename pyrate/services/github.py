@@ -29,7 +29,7 @@ class GithubPyrate(Pyrate):
         if default_http_method:
             self.default_http_method = default_http_method
 
-        if default_return_format:
+        if default_return_format or default_return_format == '':
             self.default_return_format = default_return_format
 
     def get_my_orgs(self):
