@@ -9,4 +9,4 @@ script:
 language: python
 install: 
   - pip install -r requirements.txt
-  - pip install httmock
+  - pip install httmock==1.0.6
