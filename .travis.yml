@@ -10,6 +10,6 @@ install:
   - pip install httmock==1.0.6 --use-mirrors
   - pip install coveralls --use-mirrors
 script:
-  coverage run --source=pyrate manage.py test
+  coverage run --source=pyrate setup.py test
 after_success:
   coveralls
