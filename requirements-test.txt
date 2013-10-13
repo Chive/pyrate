@@ -1,3 +1,1 @@
-requests==1.2.3
-requests-oauthlib==0.3.3
 httmock==1.0.6

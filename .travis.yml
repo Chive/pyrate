@@ -15,5 +15,5 @@ script:
 - python pyrate/tests/tests.py
 language: python
 install: 
-- pip install pycrypto
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
+  - pip install -r httmock
