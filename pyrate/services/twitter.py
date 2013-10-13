@@ -12,7 +12,7 @@ class TwitterPyrate(Pyrate):
     default_body_content = {}
     default_header_content = {}
     auth_type = 'OAUTH1'
-    connection_check_method = ('GET', 'account/verify_credentials')
+    connection_check_method = ['GET', 'account/verify_credentials']
 
     # These variables must be set on instantiation
     oauth_consumer_key = ''

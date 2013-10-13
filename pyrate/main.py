@@ -63,7 +63,15 @@ class Pyrate(object):
         raise NotImplementedError("OAuth methods need to be implemented by subclasses!")
 
     def check_connection(self):
-        return self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
+        res = self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
+        if res and self.connection_check_method[2] in res:
+            if self.connection_check_method[3]:
+                if res[self.connection_check_method[2]] == self.connection_check_method[3]:
+                    return True
+            else:
+                return True
+
+        raise Exception("Check connection failed:\n%s" % res)
 
     def build_content(self, args):
          # takes a dictionary, filters out all the empty stuff
@@ -143,10 +151,10 @@ class Pyrate(object):
     def handle_response(self, response, return_format):
         try:
             return response.json()
-        except ValueError:
+        except (ValueError, TypeError):
             return response.content
 
-    #Proxy functions for useability
+    #Proxy functions for usability
     def get(self, method, content=None, headers=None, return_format=None):
         return self.do(method, content, headers, 'GET', return_format)
 
