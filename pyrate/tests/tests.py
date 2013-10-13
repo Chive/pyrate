@@ -68,7 +68,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_mailchimp_con_do(self):
         h = self.getHandler('mailchimp')
         with HTTMock(self.mock_mailchimp):
-            self.assertEqual(h.do('helper/ping'), {u'msg': u"Everything's Chimpy!"})
+            self.assertEqual(h.do('helper/ping'), {'msg': "Everything's Chimpy!"})
 
     def test_mailchimp_con_check(self):
         h = self.getHandler('mailchimp')
