@@ -9,6 +9,14 @@ pyrate
     :target: https://crate.io/packages/pyrate/
     :alt: Number of PyPI downloads
     
+.. image:: https://travis-ci.org/Chive/pyrate.png?branch=master
+    :target: https://travis-ci.org/Chive/pyrate
+    :alt: Build Status
+
+.. image:: https://coveralls.io/repos/Chive/pyrate/badge.png?branch=master
+    :target: https://coveralls.io/r/Chive/pyrate?branch=master
+    :alt: Code Coverage
+    
 
 Pyrate is a python wrapper for restful web apis. It's like *magic* but
 simpler.
