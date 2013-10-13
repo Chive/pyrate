@@ -16,4 +16,4 @@ script:
 language: python
 install: 
   - pip install -r requirements.txt
-  - pip install -r httmock
+  - pip install httmock
