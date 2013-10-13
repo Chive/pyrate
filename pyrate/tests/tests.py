@@ -19,6 +19,7 @@ class TestSequenceFunctions(unittest.TestCase):
         travis = False
 
     if travis:
+        print("Found Travis, decrypting credentials")
         f = open('pyrate/tests/travis_credentials')
         cipher = f.read()
         from Crypto.Cipher import AES
@@ -108,7 +109,7 @@ class TestSequenceFunctions(unittest.TestCase):
         self.assertTrue(h.check_connection())
 
 
-    # Test Suites (Somehow not working?!)
+    # FIXME: Test Suites not working
     '''
     test_basecamp = unittest.TestSuite()
     test_basecamp.addTests(test_basecamp_con_check)
