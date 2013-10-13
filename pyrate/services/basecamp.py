@@ -11,7 +11,7 @@ class BasecampPyrate(Pyrate):
     return_formats = ['json']
     default_body_content = {}
     auth_type = 'BASIC_AUTH'
-    connection_check_method = ('GET', 'people/me')
+    connection_check_method = ['GET', 'people/me', 'email_address', '']
     send_json = True
 
     def __init__(self, auth_user, auth_pass, org_id, default_http_method=None, default_return_format=None):
@@ -35,8 +35,5 @@ class BasecampPyrate(Pyrate):
             self.default_return_format = self.return_formats[0]
 
     def check_connection(self):
-        res = self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
-        if 'email_address' in res and res['email_address'] == self.auth_user:
-            return True
-        else:
-            return res
+        self.connection_check_method[3] = self.auth_user
+        return Pyrate.check_connection(self)

@@ -1,22 +1,12 @@
 notifications: 
   email: false
 python:
-- 2
-- 2.3
-- 2.4
-- 2.5
 - 2.6
 - 2.7
-- 3.0
-- 3.1
-- 3.2
 - 3.3
-env: 
-  global: 
-    secure: NEwVgsBoPv81GQg1lhJJkz/rSuJfclF35CypDdxmFLqtb7Xt1ZmDJlxRvmjNhTOgKgHJyG7WAmT2+omnffDEIAZw9WtJSr8ODNLhRYZrUdI9itpIec59zlnNvPo3xk1mw4jKmcYpxpXlxwgaDpLNq6cugkpBaLgy6bf01CHxOJQ=
-script: 
+script:
 - python pyrate/tests/tests.py
 language: python
 install: 
-- pip install pycrypto
-- pip install -r requirements.txt
+  - pip install -r requirements.txt
+  - pip install httmock

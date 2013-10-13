@@ -11,7 +11,7 @@ class HarvestPyrate(Pyrate):
     return_formats = ['json']
     default_body_content = {}
     auth_type = 'BASIC_AUTH'
-    connection_check_method = ('GET', 'account/who_am_i')
+    connection_check_method = ['GET', 'account/who_am_i', 'company', '']
 
     def __init__(self, auth_user, auth_pass, organisation_name, default_http_method=None, default_return_format=None):
         super(HarvestPyrate, self).__init__()

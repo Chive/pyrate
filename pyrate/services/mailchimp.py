@@ -14,7 +14,7 @@ class MailchimpPyrate(Pyrate):
     return_formats = ['JSON', 'XML', 'PHP']
     default_header_content = {}
     auth_type = 'API_KEY'
-    connection_check_method = ('POST', 'helper/ping')
+    connection_check_method = ['POST', 'helper/ping', 'msg', "Everything's Chimpy!"]
     send_json = True
 
     def __init__(self, apikey, default_http_method=None, default_return_format=None):

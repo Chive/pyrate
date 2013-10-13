@@ -14,7 +14,7 @@ class GithubPyrate(Pyrate):
     return_formats = []
     default_body_content = {}
     auth_type = 'BASIC_AUTH'
-    connection_check_method = ('GET', '#')
+    connection_check_method = ['GET', '#', 'current_user_url', '']
     base_url = 'https://api.github.com/'
     send_json = True
 
