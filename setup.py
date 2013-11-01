@@ -38,6 +38,9 @@ setup(
     install_requires=[
         open("requirements.txt").readlines(),
     ],
+    tests_require=[
+        'httmock==1.0.7',
+    ],
     entry_points={
         'console_scripts': [
             'pyratetools = pyrate.scripts.cliutils:main',
