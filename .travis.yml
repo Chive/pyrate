@@ -7,7 +7,6 @@ python:
 language: python
 install:
   - pip install -r requirements.txt --use-mirrors
-  - pip install httmock==1.0.6 --use-mirrors
   - pip install coveralls --use-mirrors
 script:
   coverage run --source=pyrate setup.py test
