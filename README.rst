@@ -37,12 +37,11 @@ Dependencies
 -  `requests <http://python-requests.org>`__
 -  `requests\_oauthlib <https://github.com/requests/requests-oauthlib>`__
 
-Install
--------
+Installation
+------------
 
 ::
 
-    # so simple
     pip install pyrate
 
 Quick Start
@@ -58,8 +57,13 @@ Twitter
     h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret',
                               'oauth_token', 'oauth_token_secret')
 
-    print(h.do('account/verify_credentials'))
-    print(h.check_connection())
+    # check if the connection works
+    h.check_connection()
+    
+    # direct api call
+    h.do('account/verify_credentials')
+    
+    # convenient tweeting!
     h.tweet("This is awesome!")
 
 Mailchimp
@@ -71,8 +75,13 @@ Mailchimp
 
     h = mailchimp.MailchimpPyrate('apikey')
 
-    print(h.do('helper/ping'))
-    print(h.check_connection())
+    # check if the connection works
+    h.check_connection()
+    
+    # direct api call
+    h.do('helper/ping')
+    
+    # (un)subscribing to lists!
     h.subscribeToList('ListName', 'myemail@example.com')
     h.unsubscribeFromList('ListName', 'myemail@example.com')
 
@@ -85,8 +94,11 @@ Harvest
 
     h = harvest.HarvestPyrate('user', 'password', 'organisation')
 
-    print(h.do('account/who_am_i'))
-    print(h.check_connection())
+    # check if the connection works
+    h.check_connection()
+
+    # tell me who I am    
+    h.do('account/who_am_i')
 
 Github
 ~~~~~~
@@ -96,9 +108,11 @@ Github
     from pyrate.services import github
 
     h = github.GithubPyrate('user', 'password')
-
-    print(h.do('#'))
-    print(h.check_connection())
+    
+    # check if the connection works
+    h.check_connection()
+    
+    # create & delete repositories!
     h.create_repo('name', 'description', private=True)
     h.create_repo('name', 'description', 'organisation')
     h.delete_repo('name')
@@ -112,14 +126,17 @@ Basecamp
 
     h = basecamp.BasecampPyrate('user', 'password', 'org_id')
 
-    print(h.do('projects'))
+    # check if the connection works
     h.check_connection()
+    
+    # what projects are there?
+    print(h.do('projects'))
 
 Todos
 -----
 
 -  Create more "convenience"-methods (like
-   ``h.tweet("This is awesome!")``)
+   ``h.tweet()``)
 -  Implement CLI-Interface (see branch
    `feature/cli <https://github.com/Chive/pyrate/tree/feature/cli>`__)
 -  Add more services (Open for suggestions!)
