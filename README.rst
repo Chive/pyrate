@@ -16,7 +16,9 @@ pyrate
 .. image:: https://coveralls.io/repos/Chive/pyrate/badge.png?branch=master
     :target: https://coveralls.io/r/Chive/pyrate?branch=master
     :alt: Code Coverage
-    
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/Chive/pyrate/trend.png
+    :alt: Bitdeli Badge
 
 Pyrate is a python wrapper for restful web apis. It's like *magic* but
 simpler.
