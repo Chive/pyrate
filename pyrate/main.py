@@ -42,10 +42,14 @@ class Pyrate(object):
 
     def request(self, method, target, content=None, request_headers=None,
                 response_format=None, return_raw=False):
-        request_url = '%s%s%s' % (
-            self.base_url, target,
-            response_format or '.%s' % self.default_response_format or ''
-        )
+
+        request_url = '%s%s' % (self.base_url, target)
+
+        if response_format:
+            request_url += '.%s' % response_format
+        elif self.default_response_format:
+            request_url += '.%s' % self.default_response_format
+
         request_body = dict(self.default_body_content or {}, **(content or {}))
         request_headers = dict(self.default_header_content or {},
                                **(request_headers or {}))
@@ -106,9 +110,13 @@ class Pyrate(object):
                 return response.content
 
     def check_response(self, response):
-        if self.validate_response and response.status_code != 200:
-            raise Exception("There is something wrong with the response "
-                            "(Code: %i)" % response.status_code)
+        if self.validate_response and not 200 <= response.status_code < 300:
+            raise Exception(
+                "There is something wrong with the response (Code: %i)\n"
+                "Request was: %s %s\n"
+                "Response Content: %s" % (
+                    response.status_code, response.request.method,
+                    response.request.url, response.content))
         return True
 
     def check_connection(self):
