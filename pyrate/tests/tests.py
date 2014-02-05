@@ -46,7 +46,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_twitter_con_do_geo(self):
         h = self.getHandler('twitter')
         with HTTMock(self.mock_twitter):
-            self.assertTrue('geometry' in h.do('geo/id/df51dec6f4ee2b2c'))
+            self.assertTrue('geometry' in h.get('geo/id/df51dec6f4ee2b2c'))
 
     def test_twitter_tweet(self):
         h = self.getHandler('twitter')
@@ -68,7 +68,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_mailchimp_con_do(self):
         h = self.getHandler('mailchimp')
         with HTTMock(self.mock_mailchimp):
-            self.assertEqual(h.do('helper/ping'), {'msg': "Everything's Chimpy!"})
+            self.assertEqual(h.get('helper/ping'), {'msg': "Everything's Chimpy!"})
 
     def test_mailchimp_con_check(self):
         h = self.getHandler('mailchimp')
@@ -91,7 +91,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_harvest_con_do(self):
         h = self.getHandler('harvest')
         with HTTMock(self.mock_harvest):
-            res = h.do('account/who_am_i')
+            res = h.get('account/who_am_i')
         self.assertTrue('company' in res and 'user' in res)
 
     def test_harvest_con_check(self):
@@ -115,7 +115,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_github_con_do(self):
         h = self.getHandler('github')
         with HTTMock(self.mock_github):
-            self.assertTrue('current_user_url' in h.do('#'))
+            self.assertTrue('current_user_url' in h.get('#'))
 
     def test_github_con_check(self):
         h = self.getHandler('github')

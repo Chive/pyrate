@@ -1,10 +1,6 @@
 pyrate
 ======
 
-.. image:: https://pypip.in/v/pyrate/badge.png
-    :target: https://crate.io/packages/pyrate/
-    :alt: Latest PyPI version
-
 .. image:: https://pypip.in/d/pyrate/badge.png
     :target: https://crate.io/packages/pyrate/
     :alt: Number of PyPI downloads
@@ -56,14 +52,18 @@ Twitter
 
     from pyrate.services import twitter
 
-    h = twitter.TwitterPyrate('oauth_consumer_key', 'oauth_consumer_secret',
-                              'oauth_token', 'oauth_token_secret')
+    h = twitter.TwitterPyrate(
+        oauth_consumer_key='',
+        oauth_consumer_secret='',
+        oauth_token='',
+        oauth_token_secret=''
+    )
 
     # check if the connection works
     h.check_connection()
     
     # direct api call
-    h.do('account/verify_credentials')
+    h.get('account/verify_credentials')
     
     # convenient tweeting!
     h.tweet("This is awesome!")
@@ -75,7 +75,7 @@ Mailchimp
 
     from pyrate.services import mailchimp
 
-    h = mailchimp.MailchimpPyrate('apikey')
+    h = mailchimp.MailchimpPyrate(apikey='')
 
     # check if the connection works
     h.check_connection()
@@ -94,7 +94,11 @@ Harvest
 
     from pyrate.services import harvest
 
-    h = harvest.HarvestPyrate('user', 'password', 'organisation')
+    h = harvest.HarvestPyrate(
+        user='',
+        password='',
+        organisation=''
+    )
 
     # check if the connection works
     h.check_connection()
@@ -109,7 +113,10 @@ Github
 
     from pyrate.services import github
 
-    h = github.GithubPyrate('user', 'password')
+    h = github.GithubPyrate(
+        user='',
+        password=''
+    )
     
     # check if the connection works
     h.check_connection()
@@ -126,7 +133,11 @@ Basecamp
 
     from pyrate.services import basecamp
 
-    h = basecamp.BasecampPyrate('user', 'password', 'org_id')
+    h = basecamp.BasecampPyrate(
+        user='',
+        password='',
+        org_id=''
+    )
 
     # check if the connection works
     h.check_connection()

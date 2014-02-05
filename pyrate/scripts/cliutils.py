@@ -7,13 +7,13 @@ from urlparse import parse_qs
 
 
 def twitter_oauth():
-    print()
-    print()
-    print()
+    print("")
+    print("")
+    print("")
     os.system("clear")
     print("Twitter OAuth")
     print("-------------")
-    print()
+    print("")
     oauth_consumer_key = raw_input("Please enter your OAuth Consumer Key: ")
     oauth_consumer_secret = raw_input("Please enter your OAuth Consumer Secret: ")
 
@@ -69,17 +69,17 @@ def main():
     print("  | .__/ \__, |_|  \__,_|\__\___|")
     print("  | |     __/ |")
     print("  |_|    |___/")
-    print()
-    print()
-
-    print("# These is Pyrate's commandline tool. For the usage of pyrate,")
-    print("# please read the docs: https://github.com/Chive/pyrate")
     print("")
-    print()
+    print("")
+
+    print("This is Pyrate's commandline tool. For the usage of pyrate,")
+    print("please read the docs: https://github.com/Chive/pyrate")
+    print("")
+    print("")
     print("# Tasks")
     print("1 Generate Twitter OAuth Tokens")
     print("0 Exit")
-    print()
+    print("")
     c = raw_input("Your Choice: ")
 
     if c == '1':

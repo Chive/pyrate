@@ -1,171 +1,144 @@
-from base64 import b64encode
 import json
 import requests
-import sys
+from utils import build_oauth1
 
 __docformat__ = 'sphinx en'
+
 
 class Pyrate(object):
     """This is the main class
 
-    :param list http_methods: List of available HTTP methods for this service
-    :param list return_formats: List of available return formats for this service
-    :param default_header_content: Default content for the request header
-    :param default_body_content: Default content for the request body
-    :param string default_http_method: Default HTTP method (will be used if none else is specified in request)
-    :param string default_return_format: Default return format (will be used if none else is specified in request)
-    :param string connection_check_method: Used by :func:`check_connection`
-    :param string auth_type: The authentification type. Obsolete.
     :param string base_url: The base url for all api requests
+    :param default_header_content: Default content for the HTTP request header
+    :param default_body_content: Default content for the HTTP request body
+    :param dict auth_type: Dictionary with authentification information. Type
+    and personal information like api keys or usernames/passwords
     :param bool send_json: Whether the request body should be encoded with json
+
+    :param list response_formats: List of available return formats for this service
+    :param string default_response_format: Default return format (will be used if none else is specified in request)
+    :param dict connection_check: Used by :func:`check_connection`
     """
 
-    http_methods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-    return_formats = []
+    # request
+    base_url = None
     default_header_content = None
     default_body_content = None
-    default_http_method = None
-    default_return_format = None
-    connection_check_method = None
-    auth_type = None
-    base_url = None
+    auth_data = {'type': None}
     send_json = False
 
+    # response
+    response_formats = []
+    default_response_format = None
+    validate_response = True
+
+    connection_check = {'http_method': None, 'target': None}
+
     def __init__(self):
-        self.default_http_method = self.http_methods[0]
         try:
-            self.default_return_format = self.return_formats[0]
+            self.default_response_format = self.response_formats[0]
         except IndexError:
-            self.default_return_format = ''
+            self.default_response_format = None
 
-    def create_basic_auth(self, user, password):
-        """Creates the header content for HTTP Basic Authentification.
+    def request(self, method, target, content=None, request_headers=None,
+                response_format=None, return_raw=False):
+        request_url = '%s%s%s' % (
+            self.base_url, target,
+            response_format or '.%s' % self.default_response_format or ''
+        )
+        request_body = dict(self.default_body_content or {}, **(content or {}))
+        request_headers = dict(self.default_header_content or {},
+                               **(request_headers or {}))
+        response_format = '' + ('.' + self.default_response_format if
+                                self.default_response_format else '')
+        auth_data = self.get_auth_data()
 
-        :param user: Username
-        :param password: Password
-        :rtype: Base64-encoded auth string
-        """
-
-        # Messing around with Python3's strictness about strings
-        if sys.version_info >= (3, 0):
-            if not isinstance(user, str):
-                user = user.decode('utf-8')
-
-            if not isinstance(password, str):
-                password = password.decode('utf-8')
-
-            return 'Basic ' + b64encode((user + ":" + password).encode('utf-8')).decode('utf-8')
-
-        else:
-            return 'Basic ' + b64encode(user + ":" + password).rstrip()
-
-    def get_oauth(self):
-        raise NotImplementedError("OAuth methods need to be implemented by subclasses!")
-
-    def check_connection(self):
-        res = self.do(self.connection_check_method[1], http_method=self.connection_check_method[0])
-        if res and self.connection_check_method[2] in res:
-            if self.connection_check_method[3]:
-                if res[self.connection_check_method[2]] == self.connection_check_method[3]:
-                    return True
-            else:
-                return True
-
-        raise Exception("Check connection failed:\n%s" % res)
-
-    def build_content(self, args):
-         # takes a dictionary, filters out all the empty stuff
-        if 'self' in args:
-            del args['self']
-        new_args = args.copy()
-
-        for key in args:
-            if not args[key]:
-                del new_args[key]
-
-        return new_args
-
-    def check_response_success(self, response):
-        raise NotImplementedError('Please implement in subclass')
-
-    def parse_errors(self, response):
-        raise NotImplementedError('Please implement in subclass')
-
-    def do(self, method, content=None, headers=None, http_method=None, return_format=None):
-
-        request_body = self.default_body_content
-        if content is not None:
-            request_body.update(content)
-
-        request_headers = self.default_header_content
-        if headers is not None:
-            request_headers.update(headers)
-
-        if http_method is None:
-            http_method = self.default_http_method
-
-        if return_format is None:
-            if self.default_return_format:
-                return_format = "." + self.default_return_format
-            else:
-                return_format = ''
-
-        request_url = self.base_url + method + return_format
-
-        return self.do_request(http_method, request_url, request_headers, request_body, return_format)
-
-    def do_request(self, http_method, url, headers, body, return_format):
-
-        if self.auth_type == 'OAUTH1':
-            auth_data = self.get_oauth()
-        else:
-            auth_data = None
-
+        # TODO: do we really need this?
         if self.send_json:
             # We need to make sure that body is jsonified
             try:
-                body = json.dumps(body)
+                request_body = json.dumps(request_body)
             except TypeError or ValueError:
                 pass
 
-        if http_method.upper() == 'GET':
-            r = requests.get(url, headers=headers, auth=auth_data)
+        response = requests.request(
+            method=method, url=request_url, data=request_body,
+            headers=request_headers, auth=auth_data)
 
-        elif http_method.upper() == 'POST':
-            r = requests.post(url, data=body, headers=headers, auth=auth_data)
+        if return_raw:
+            return response
+        else:
+            return self.handle_response(response, response_format)
 
-        elif http_method.upper() == 'PUT':
-            r = requests.put(url, data=body, headers=headers, auth=auth_data)
+    def delete(self, target, content=None, headers=None, response_format=None):
+        """Sends a DELETE request"""
+        return self.request('DELETE', target, content, headers, response_format)
 
-        elif http_method.upper() == 'DELETE':
-            r = requests.delete(url, data=body, headers=headers, auth=auth_data)
+    def get(self, target, content=None, headers=None, response_format=None):
+        """Sends a GET request"""
+        return self.request('GET', target, content, headers, response_format)
 
-        elif http_method.upper() == 'OPTIONS':
-            r = requests.options(url, data=body, headers=headers, auth=auth_data)
+    def head(self, target, content=None, headers=None, response_format=None):
+        """Sends a HEAD request"""
+        return self.request('HEAD', target, content, headers, response_format)
+
+    def options(self, target, content=None, headers=None, response_format=None):
+        """Sends a OPTIONS request"""
+        return self.request('OPTIONS', target, content, headers, response_format)
+
+    def post(self, target, content=None, headers=None, response_format=None):
+        """Sends a POST request"""
+        return self.request('POST', target, content, headers, response_format)
+
+    def put(self, target, content=None, headers=None, response_format=None):
+        """Sends a PUT request"""
+        return self.request('PUT', target, content, headers, response_format)
+
+    def patch(self, target, content=None, headers=None, response_format=None):
+        """Sends a PATCH request"""
+        return self.request('PATCH', target, content, headers, response_format)
+
+    def handle_response(self, response, response_format):
+        if self.check_response(response):
+            try:
+                return response.json()
+            except (ValueError, TypeError):
+                return response.content
+
+    def check_response(self, response):
+        if self.validate_response and response.status_code != 200:
+            raise Exception("There is something wrong with the response "
+                            "(Code: %i)" % response.status_code)
+        return True
+
+    def check_connection(self):
+        return self.check_response(self.request(
+            method=self.connection_check['http_method'],
+            target=self.connection_check['target'],
+            return_raw=True
+        ))
+
+    def get_auth_data(self):
+        try:
+            auth_type = self.auth_data['type']
+        except IndexError:
+            return None
+
+        if not auth_type:
+            return None
+
+        elif auth_type == 'BASIC':
+            return self.auth_data['username'], self.auth_data['password']
+
+        elif auth_type == 'OAUTH1':
+            return build_oauth1(
+                self.auth_data['client_key'], self.auth_data['client_secret'],
+                self.auth_data['token_key'], self.auth_data['token_secret'])
 
         else:
-            raise Exception("Invalid request method")
+            raise NotImplementedError()
 
-        return self.handle_response(r, return_format)
-
-    def handle_response(self, response, return_format):
-        try:
-            return response.json()
-        except (ValueError, TypeError):
-            return response.content
-
-    #Proxy functions for usability
-    def get(self, method, content=None, headers=None, return_format=None):
-        return self.do(method, content, headers, 'GET', return_format)
-
-    def post(self, method, content=None, headers=None, return_format=None):
-        return self.do(method, content, headers, 'POST', return_format)
-
-    def put(self, method, content=None, headers=None, return_format=None):
-        return self.do(method, content, headers, 'PUT', return_format)
-
-    def delete(self, method, content=None, headers=None, return_format=None):
-        return self.do(method, content, headers, 'DELETE', return_format)
-
-    def options(self, method, content=None, headers=None, return_format=None):
-        return self.do(method, content, headers, 'OPTIONS', return_format)
+    # Deprecated Methods
+    def do(self, *args, **kwargs):
+        raise DeprecationWarning("This proxy method is deprecated. Please use "
+                                 "the appropriate method directly instead.")

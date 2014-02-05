@@ -1,4 +1,5 @@
 from pyrate.main import Pyrate
+from pyrate.utils import clean_dict
 
 
 class OrganisationNotFoundError(Exception):
@@ -6,49 +7,46 @@ class OrganisationNotFoundError(Exception):
 
 
 class GithubPyrate(Pyrate):
-    # These variables must be set on instantiation
-    auth_user = ''
-    auth_pass = ''
 
-    http_methods = ['GET', 'POST', 'PATCH', 'DELETE']
-    return_formats = []
-    default_body_content = {}
-    auth_type = 'BASIC_AUTH'
-    connection_check_method = ['GET', '#', 'current_user_url', '']
+    # request
     base_url = 'https://api.github.com/'
+    default_header_content = None  # see __init__
+    default_body_content = None
+    auth_data = {'type': 'BASIC'}
     send_json = True
 
-    def __init__(self, auth_user, auth_pass, default_http_method=None, default_return_format=None):
+    # response
+    response_formats = []
+    default_response_format = None
+    validate_response = True
+
+    connection_check = {'http_method': 'GET', 'target': '#'}
+
+    def __init__(self, auth_user, auth_pass):
         super(GithubPyrate, self).__init__()
-        self.auth_user = auth_user
-        self.auth_pass = auth_pass
+        self.auth_data['username'] = auth_user
+        self.auth_data['password'] = auth_pass
         self.default_header_content = {
-            'Authorization': self.create_basic_auth(self.auth_user, self.auth_pass)
+            'Authorization': self.get_auth_data()
         }
 
-        if default_http_method:
-            self.default_http_method = default_http_method
-
-        if default_return_format or default_return_format == '':
-            self.default_return_format = default_return_format
-
     def get_my_orgs(self):
-        return self.do('user/orgs', http_method='GET')
+        return self.get('user/orgs')
 
     def create_repo(self, name, description=False, org_name=False, private=False):
-        fargs = {'name': name, 'description': description, 'private': private}
+        kwargs = clean_dict({'name': name, 'description': description,
+                             'private': private})
         if org_name:
-            query = 'orgs/' + str(org_name) + '/repos'
+            target = 'orgs/%s/repos' % str(org_name)
         else:
-            query = 'user/repos'
+            target = 'user/repos'
 
-        return self.do(query, http_method='POST', content=self.build_content(fargs))
+        return self.post(target, content=kwargs)
 
     def delete_repo(self, name, org_name=False):
         if org_name:
             user = str(org_name)
         else:
-            user = self.auth_user
+            user = self.auth_data['user']
 
-        query = 'repos/' + user + '/' + name
-        return self.do(query, http_method='DELETE')
+        return self.delete('repos/%s/%s' % (user, name))
