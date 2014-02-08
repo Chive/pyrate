@@ -62,7 +62,7 @@ class Pyrate(object):
             # We need to make sure that body is jsonified
             try:
                 request_body = json.dumps(request_body)
-            except TypeError or ValueError:
+            except (TypeError, ValueError):
                 pass
 
         response = requests.request(
