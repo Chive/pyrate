@@ -114,9 +114,11 @@ class Pyrate(object):
             raise Exception(
                 "There is something wrong with the response (Code: %i)\n"
                 "Request was: %s %s\n"
+                "Request data was: %s \n"
                 "Response Content: %s" % (
                     response.status_code, response.request.method,
-                    response.request.url, response.content))
+                    response.request.url, response.request.body,
+                    response.content))
         return True
 
     def check_connection(self):
@@ -140,8 +142,14 @@ class Pyrate(object):
 
         elif auth_type == 'OAUTH1':
             return build_oauth1(
-                self.auth_data['client_key'], self.auth_data['client_secret'],
-                self.auth_data['token_key'], self.auth_data['token_secret'])
+                client_key=self.auth_data['client_key'],
+                client_secret=self.auth_data['client_secret'],
+                resource_owner_key=self.auth_data['token_key'],
+                resource_owner_secret=self.auth_data['token_secret']
+            )
+
+        elif auth_type == 'MANUAL':
+            return None
 
         else:
             raise NotImplementedError()

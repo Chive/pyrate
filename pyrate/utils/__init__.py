@@ -1,10 +1,10 @@
 from requests_oauthlib import OAuth1
 
 
-def build_oauth1(client_key, client_secret, token_key, token_secret):
+def build_oauth1(client_key, client_secret, resource_owner_key, resource_owner_secret):
     return OAuth1(
         client_key=client_key, client_secret=client_secret,
-        resource_owner_key=token_key, resource_owner_secret=token_secret
+        resource_owner_key=resource_owner_key, resource_owner_secret=resource_owner_secret
     )
 
 
