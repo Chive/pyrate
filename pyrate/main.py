@@ -74,33 +74,33 @@ class Pyrate(object):
         else:
             return self.handle_response(response, response_format)
 
-    def delete(self, target, content=None, headers=None, response_format=None):
+    def delete(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a DELETE request"""
-        return self.request('DELETE', target, content, headers, response_format)
+        return self.request('DELETE', target, content, headers, response_format, return_raw)
 
-    def get(self, target, content=None, headers=None, response_format=None):
+    def get(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a GET request"""
-        return self.request('GET', target, content, headers, response_format)
+        return self.request('GET', target, content, headers, response_format, return_raw)
 
-    def head(self, target, content=None, headers=None, response_format=None):
+    def head(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a HEAD request"""
-        return self.request('HEAD', target, content, headers, response_format)
+        return self.request('HEAD', target, content, headers, response_format, return_raw)
 
-    def options(self, target, content=None, headers=None, response_format=None):
+    def options(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a OPTIONS request"""
-        return self.request('OPTIONS', target, content, headers, response_format)
+        return self.request('OPTIONS', target, content, headers, response_format, return_raw)
 
-    def post(self, target, content=None, headers=None, response_format=None):
+    def post(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a POST request"""
-        return self.request('POST', target, content, headers, response_format)
+        return self.request('POST', target, content, headers, response_format, return_raw)
 
-    def put(self, target, content=None, headers=None, response_format=None):
+    def put(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a PUT request"""
-        return self.request('PUT', target, content, headers, response_format)
+        return self.request('PUT', target, content, headers, response_format, return_raw)
 
-    def patch(self, target, content=None, headers=None, response_format=None):
+    def patch(self, target, content=None, headers=None, response_format=None, return_raw=False):
         """Sends a PATCH request"""
-        return self.request('PATCH', target, content, headers, response_format)
+        return self.request('PATCH', target, content, headers, response_format, return_raw)
 
     def handle_response(self, response, response_format):
         if self.check_response(response):

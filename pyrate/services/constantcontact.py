@@ -73,8 +73,15 @@ class ConstantContactPyrate(Pyrate):
             'lists': [{'id': str(list_id)}],
             'email_addresses': [{'email_address': email}]
         }
-        return self.post(
+        r = self.post(
             target=target,
             content=content,
-            headers={"Content-Type": "application/json"}
+            headers={"Content-Type": "application/json"},
+            return_raw=True
         )
+
+        success = False
+        if r.status_code == 201:
+            success = True
+        return success, r.content
+
