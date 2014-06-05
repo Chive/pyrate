@@ -79,11 +79,15 @@ class MailchimpPyrate(Pyrate):
 
     # http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php
     def subscribe_to_list(
-            self, list_name, user_email, merge_vars=None, email_type=None,
-            double_optin=None, update_existing=None, replace_interests=None,
-            send_welcome=None):
+            self, user_email, list_name=None, list_id=None, merge_vars=None,
+            email_type=None, double_optin=None, update_existing=None,
+            replace_interests=None, send_welcome=None):
 
-        list_id = self.get_list_by_name(list_name)['id']
+        if not list_id:
+            if not list_name:
+                raise Exception('Either list_id or list_name has to be passed')
+            list_id = self.get_list_by_name(list_name)['id']
+
         kwargs = clean_dict({
             'id': list_id, 'email': {'email': user_email},
             'merge_vars': merge_vars, 'email_type': email_type,
@@ -96,10 +100,14 @@ class MailchimpPyrate(Pyrate):
 
     # http://apidocs.mailchimp.com/api/2.0/lists/unsubscribe.php
     def unsubscribe_from_list(
-            self, list_name, user_email, delete_member=None, send_goodbye=None,
-            send_notify=None):
+            self, user_email, list_name=None, list_id=None, delete_member=None,
+            send_goodbye=None, send_notify=None):
 
-        list_id = self.get_list_by_name(list_name)['id']
+        if not list_id:
+            if not list_name:
+                raise Exception('Either list_id or list_name has to be passed')
+            list_id = self.get_list_by_name(list_name)['id']
+
         kwargs = clean_dict({
             'id': list_id, 'email': {'email': user_email},
             'delete_member': delete_member, 'send_goodbye': send_goodbye,
