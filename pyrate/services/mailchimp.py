@@ -1,5 +1,5 @@
 from pyrate.main import Pyrate
-from pyrate.utils import clean_dict
+from pyrate.utils import clean_dict, ExceptionWithCode
 
 
 class ListNotFoundError(Exception):
@@ -37,37 +37,19 @@ class MailchimpPyrate(Pyrate):
     def get_auth_data(self):
         return None
 
-    def check_response_success(self, response):
-        if 'error' not in response:
-            if 'errors' in response:
-                if response['errors'] == []:
-                    return True
-                else:
-                    return False
-            return True
-        else:
-            self.parse_errors(response)
-            return False
-
-    def parse_errors(self, response):
-        if 'error' in response:
-            print("Error: %s (Code: %s)" % (response['error'], response['code']))
-        elif 'errors' in response:
-            for error in response['errors']:
-                print("Error: %s (Code: %s)" % (error['error'], error['code']))
-                print(error['param'])
-        else:
-            print("Error: %s" % response)
+    def check_response(self, response):
+        if self.validate_response and not 200 <= response.status_code < 300:
+            if 'code' in response.json():
+                raise ExceptionWithCode(code=response.json()['code'])
+            return super(MailchimpPyrate, self).check_response(response)
+        return True
 
     # http://apidocs.mailchimp.com/api/2.0/lists/list.php
     def get_all_lists(self, filters=None, start=None, limit=None,
                       sort_field=None, sort_dir=None):
 
         res = self.post('lists/list', content=clean_dict(locals()))
-        if self.check_response_success(res):
-            return res['data']
-        else:
-            return res
+        return res['data']
 
     def get_list_by_name(self, list_name):
         lists = self.get_all_lists()
@@ -75,7 +57,7 @@ class MailchimpPyrate(Pyrate):
             if l['name'] == list_name:
                 return l
 
-        raise ListNotFoundError()
+        raise ListNotFoundError
 
     # http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php
     def subscribe_to_list(

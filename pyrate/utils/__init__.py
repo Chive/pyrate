@@ -13,6 +13,11 @@ def clean_dict(dirty_dict):
     return dict((k, v) for k, v in dirty_dict.iteritems() if v)
 
 
+class ExceptionWithCode(Exception):
+    def __init__(self, code):
+        self.code = code
+
+
 # Deprecated methods
 def build_basic_auth(*args, **kwargs):
     raise DeprecationWarning("This method is deprecated since python-requests "
