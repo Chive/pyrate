@@ -1,45 +1,26 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>Pyrate by Chive</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/Chive/pyrate">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/Chive/pyrate/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/Chive/pyrate/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <section class="page-header">
+      <h1 class="project-name">Pyrate</h1>
+      <h2 class="project-tagline">a python wrapper for restful apis</h2>
+      <a href="https://github.com/Chive/pyrate" class="btn">View on GitHub</a>
+      <a href="https://github.com/Chive/pyrate/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Chive/pyrate/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
-          <h1>Pyrate</h1>
-          <p>a python wrapper for restful apis</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/Chive">Chive</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
-
-        <h1>
-<a name="pyrate" class="anchor" href="#pyrate"><span class="octicon octicon-link"></span></a>pyrate</h1>
+    <section class="main-content">
+      <h1>
+<a id="pyrate" class="anchor" href="#pyrate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pyrate</h1>
 
 <p>Pyrate is a python wrapper for restful web apis. It's like <em>magic</em> but simpler.</p>
 
@@ -49,24 +30,28 @@
 <li>Twitter (v1.1 + OAuth)</li>
 <li>Mailchimp (v2)</li>
 <li>Harvest</li>
-</ul><h2>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+</ul>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h2>
 
 <ul>
 <li><a href="http://python-requests.org">requests</a></li>
 <li><a href="https://github.com/requests/requests-oauthlib">requests_oauthlib</a></li>
-</ul><h2>
-<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+</ul>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
 
 <pre><code># so simple
 pip install pyrate
 </code></pre>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <h3>
-<a name="twitter" class="anchor" href="#twitter"><span class="octicon octicon-link"></span></a>Twitter</h3>
+<a id="twitter" class="anchor" href="#twitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Twitter</h3>
 
 <pre><code>from pyrate.services import twitter
 
@@ -83,7 +68,7 @@ print h.check_connection()
 </code></pre>
 
 <h3>
-<a name="mailchimp" class="anchor" href="#mailchimp"><span class="octicon octicon-link"></span></a>Mailchimp</h3>
+<a id="mailchimp" class="anchor" href="#mailchimp" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mailchimp</h3>
 
 <pre><code>from pyrate.services import mailchimp
 
@@ -96,7 +81,7 @@ print h.check_connection()
 </code></pre>
 
 <h3>
-<a name="harvest" class="anchor" href="#harvest"><span class="octicon octicon-link"></span></a>Harvest</h3>
+<a id="harvest" class="anchor" href="#harvest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Harvest</h3>
 
 <pre><code>from pyrate.services import harvest
 
@@ -111,17 +96,33 @@ print h.check_connection()
 </code></pre>
 
 <h2>
-<a name="todos" class="anchor" href="#todos"><span class="octicon octicon-link"></span></a>Todos</h2>
+<a id="todos" class="anchor" href="#todos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Todos</h2>
 
 <ul>
 <li>Fix Twitter OAuth (currently it's read-only)</li>
 <li>Create "convenience"-methods (e.g. <code>h.tweet("Pyrate is awesome!")</code>)</li>
 <li>lots and lots more</li>
 </ul>
-      </section>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Chive/pyrate">Pyrate</a> is maintained by <a href="https://github.com/Chive">Chive</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-62795232-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
+
