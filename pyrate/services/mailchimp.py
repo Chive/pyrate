@@ -24,7 +24,7 @@ class MailchimpPyrate(Pyrate):
 
     def __init__(self, apikey, default_response_format=None):
         super(MailchimpPyrate, self).__init__()
-        self.base_url = 'https://' + apikey[-3:] + '.api.mailchimp.com/2.0/'
+        self.base_url = 'https://' + apikey.split('-')[-1] + '.api.mailchimp.com/2.0/'
         self.default_body_content = {
             'apikey': apikey
         }
