@@ -4,8 +4,12 @@ import os
 from setuptools import setup, find_packages
 from pyrate import __version__
 
+REQUIREMENTS = (
+    'requests',
+    'requests-oauthlib',
+)
 
-CLASSIFIERS = [
+CLASSIFIERS = (
     'Development Status :: 4 - Beta',
     'Environment :: Console',
     'Environment :: Web Environment',
@@ -18,7 +22,7 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 3',
     'Topic :: Communications',
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-]
+)
 
 setup(
     name='pyrate',
@@ -35,12 +39,10 @@ setup(
     include_package_data=True,
     zip_safe=False,
     test_suite='pyrate.tests',
-    install_requires=[
-        open("requirements.txt").readlines(),
-    ],
-    tests_require=[
-        'httmock==1.0.7',
-    ],
+    install_requires=REQUIREMENTS,
+    tests_require=(
+        'httmock',
+    ),
     entry_points={
         'console_scripts': [
             'pyratetools = pyrate.scripts.cliutils:main',
