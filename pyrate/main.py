@@ -1,6 +1,6 @@
 import json
 import requests
-from utils import build_oauth1
+from .utils import build_oauth1
 
 __docformat__ = 'sphinx en'
 

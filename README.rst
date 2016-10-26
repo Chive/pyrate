@@ -34,6 +34,7 @@ Dependencies
 
 -  `requests <http://python-requests.org>`__
 -  `requests\_oauthlib <https://github.com/requests/requests-oauthlib>`__
+-  `six <https://pythonhosted.org/six/>`__
 
 Installation
 ------------

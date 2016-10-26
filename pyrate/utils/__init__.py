@@ -1,3 +1,4 @@
+import six
 from requests_oauthlib import OAuth1
 
 
@@ -10,7 +11,7 @@ def build_oauth1(client_key, client_secret, resource_owner_key, resource_owner_s
 
 def clean_dict(dirty_dict):
     """Cleans a dictionary from keys with empty string values"""
-    return dict((k, v) for k, v in dirty_dict.iteritems() if v)
+    return dict((k, v) for k, v in six.iteritems(dirty_dict) if v)
 
 
 class ExceptionWithCode(Exception):

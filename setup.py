@@ -7,6 +7,7 @@ from pyrate import __version__
 REQUIREMENTS = (
     'requests',
     'requests-oauthlib',
+    'six'
 )
 
 CLASSIFIERS = (
