@@ -10,7 +10,7 @@ REQUIREMENTS = (
     'six'
 )
 
-CLASSIFIERS = (
+CLASSIFIERS = [
     'Development Status :: 4 - Beta',
     'Environment :: Console',
     'Environment :: Web Environment',
@@ -23,7 +23,7 @@ CLASSIFIERS = (
     'Programming Language :: Python :: 3',
     'Topic :: Communications',
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-)
+]
 
 setup(
     name='pyrate',
